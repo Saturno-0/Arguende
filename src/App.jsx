@@ -2,7 +2,7 @@ function App() {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center">
       <h1 className="text-3xl font-bold text-gray-800">
-        ¡Hola Mundo con Vite + React + Tailwind!
+        Coman frutas y verduras
       </h1>
     </div>
   )
