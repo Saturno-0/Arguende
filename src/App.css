@@ -1,7 +1,7 @@
 
 * {
   font-family: 'Helvetica Neue', Arial, sans-serif;
-  font-weight: 300; /* light por defecto */
+  font-weight: 100; /* light por defecto */
 }
 
 .font-medium {
@@ -11,3 +11,4 @@
 .font-heavy {
   font-weight: 800;
 }
+
