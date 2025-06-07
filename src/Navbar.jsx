@@ -2,18 +2,17 @@ import './app.css';
 
 function Navbar() {
     return (
-
-        <nav className="fixed flex justify-between items-center h-25 md:h-30 w-full z-50 px-10 md:px-8 md:py-7 bg-gradient-to-b from-white to-transparent from-1%">
-
+        <nav className="fixed flex justify-between items-center h-25 w-full z-50 px-4 py-7 bg-gradient-to-b from-white to-transparent ">
             <div className="md:hidden">
                 <button className="text-gray-800">
                 </button>
             </div>
-
-            <div className="hidden md:flex md:space-x-10">
-                <span className="text-gray-800 font-light md:text-3xl">
-                    Alimentos
-                </span>
+            <div className="hidden md:flex  md:space-x-10">
+                <a href="#comida" className="hover:opacity-70 transition-opacity">
+                    <span className="text-gray-800 font-light md:text-3xl">
+                        Comida
+                    </span>
+                </a>
                 <span className="text-gray-800 font-light md:text-3xl">
                     Bebidas
                 </span>
@@ -23,11 +22,13 @@ function Navbar() {
             </div>
 
             <div className="absolute left-1/2 -translate-x-1/2">
+                <a href="#landing" className="hover:opacity-70 transition-opacity">
                 <img
                     src="public/logo.png"
                     alt="Argüende"
-                    className="h-12 object-contain md:h-23"
+                    className="object-contain md:w-[18vw]"
                 />
+                </a>
             </div>
 
             <div className=" flex space-x-7 md:space-x-50 md:mr-10">
@@ -41,7 +42,6 @@ function Navbar() {
                 />
             </div>
         </nav>
-
     );
 }
 
