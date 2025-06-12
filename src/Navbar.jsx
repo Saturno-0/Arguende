@@ -13,12 +13,16 @@ function Navbar() {
                         Comida
                     </span>
                 </a>
+                <a href="#bebidas" className="hover:opacity-70 transition-opacity">
                 <span className="text-gray-800 font-light md:text-3xl">
                     Bebidas
                 </span>
+                </a>
+                 <a href="#contacto" className="hover:opacity-70 transition-opacity">
                 <span className="text-gray-800 font-light md:text-3xl">
                     Contacto
                 </span>
+                </a>
             </div>
 
             <div className="absolute left-1/2 -translate-x-1/2">
@@ -32,16 +36,18 @@ function Navbar() {
             </div>
 
             <div className=" flex space-x-7 md:space-x-50 md:mr-10">
+                 <a href="https://www.instagram.com/arguende_/" target="_blank" className="hover:opacity-70 transition-opacity">
                 <img
                     src="src/assets/icon-instagram.png"
                     className="w-6 md:w-9 object-contain hover:opacity-75 transition-opacity"
                 />
-                <img
+                </a>
+                {/* <img
                     src="src/assets/icon-uber.png"
                     className="w-6 md:w-9 object-contain hover:opacity-75 transition-opacity"
-                />
+                /> */}
             </div>
-        </nav>
+        </nav >
     );
 }
 
