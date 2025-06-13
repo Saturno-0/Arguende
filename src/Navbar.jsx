@@ -1,11 +1,11 @@
 import './app.css';
+import HamburgerMenu from './HamburgerMenu.jsx'
 
 function Navbar() {
     return (
         <nav className="fixed flex justify-between items-center h-25 w-full z-50 px-4 py-7 bg-gradient-to-b from-white to-transparent ">
             <div className="md:hidden">
-                <button className="text-gray-800">
-                </button>
+             <HamburgerMenu />
             </div>
             <div className="hidden md:flex  md:space-x-10">
                 <a href="#comida" className="hover:opacity-70 transition-opacity">
@@ -35,11 +35,11 @@ function Navbar() {
                 </a>
             </div>
 
-            <div className=" flex space-x-7 md:space-x-50 md:mr-10">
+            <div className="relative space-x-7 md:space-x-50 md:mr-10">
                  <a href="https://www.instagram.com/arguende_/" target="_blank" className="hover:opacity-70 transition-opacity">
                 <img
                     src="src/assets/icon-instagram.png"
-                    className="w-6 md:w-9 object-contain hover:opacity-75 transition-opacity"
+                    className="w-9 object-contain hover:opacity-75 transition-opacity"
                 />
                 </a>
                 {/* <img

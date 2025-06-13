@@ -3,8 +3,8 @@ import './app.css'
 function Footer() {
     return (
         <div>
-            <div id="contacto" class="flex" >
-                <div class='text-[#D0D0CE] bg-[#282828] md:flex md:justify-between md:pr-50'>
+            <div id="contacto" class="flex " >
+                <div class='text-[#D0D0CE] md:w-screen bg-[#282828] md:flex md:justify-between md:pr-50'>
                     <div class="md:mx-15 mx-5 mt-10">
                         <p class="font-pesada text-6xl md:text-6xl">CONTACTO</p>
                         <div class="pt-5 pb-10 text-2xl md:text-3xl ">
