@@ -1,6 +1,33 @@
 import './App.css';
+import { useEffect, useRef } from 'react'
 
 function App() {
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-slide-up');
+            observer.unobserve(entry.target); // Stop observing once animated
+          }
+        });
+      },
+      { threshold: 0.6 } // Trigger when 10% of the element is visible
+    );
+
+    if (textRef.current) {
+      observer.observe(textRef.current);
+    }
+
+    return () => {
+      if (textRef.current) {
+        observer.unobserve(textRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div>
       <div id="comida" class="flex md:pt-25">
@@ -22,32 +49,34 @@ function App() {
               <p class=" font-pesada">RITUAL HABITUAL</p>
             </div>
           </div>
-          <div class='md:mx-15 mx-5' >
-            <div class="pb-5">
-              <p class="font-pesada text-6xl md:text-6xl">COMIDA</p>
-              <div class="flex pt-5 justify-between text-2xl md:text-3xl ">
-                <p class="font-media">MENEMEN</p>
-                <p class="font-pesada ">$95</p>
+          <div class='md:mx-15 mx-5'>
+            <div ref={textRef}>
+              <div class="pb-5">
+                <p class="font-pesada text-6xl md:text-6xl">COMIDA</p>
+                <div class="flex pt-5 justify-between text-2xl md:text-3xl ">
+                  <p class="font-media">MENEMEN</p>
+                  <p class="font-pesada ">$95</p>
+                </div>
+                <div class="text-lg md:text-xl md:tracking-wider w-8/10 md:w-6/10">
+                  <p>Huevos escalfados en salsa de tomate con
+                    especias, pimiento, cebolla, queso fresco y
+                    perejil. </p>
+                </div>
               </div>
-              <div class="text-lg md:text-xl md:tracking-wider w-8/10 md:w-6/10">
-                <p>Huevos escalfados en salsa de tomate con
-                  especias, pimiento, cebolla, queso fresco y
-                  perejil. </p>
-              </div>
-            </div>
-            <div class="py-5">
-              <div class="flex justify-between text-2xl md:text-3xl ">
-                <p class="font-media">NIÑO LINDO</p>
-                <p class="font-pesada">$110</p>
-              </div>
-              <div class="text-lg md:text-xl md:tracking-wider md:w-6/10 w-8/10">
-                <p>Tostado con durazno asado, burrata,
-                  verdolaga y miel infusionada con habanero.
-                </p>
-              </div>
-              <div class="flex  justify-between md:justify-end items-center ">
-                <p class="font-media">¡Hazlo salado! Añade jamon serrano</p>
-                <p class="font-pesada md:pl-10 text-xl md:text-2xl ">+ $15</p>
+              <div class="py-5">
+                <div class="flex justify-between text-2xl md:text-3xl ">
+                  <p class="font-media">NIÑO LINDO</p>
+                  <p class="font-pesada">$110</p>
+                </div>
+                <div class="text-lg md:text-xl md:tracking-wider md:w-6/10 w-8/10">
+                  <p>Tostado con durazno asado, burrata,
+                    verdolaga y miel infusionada con habanero.
+                  </p>
+                </div>
+                <div class="flex  justify-between md:justify-end items-center ">
+                  <p class="font-media">¡Hazlo salado! Añade jamon serrano</p>
+                  <p class="font-pesada md:pl-10 text-xl md:text-2xl ">+ $15</p>
+                </div>
               </div>
             </div>
             <div class="py-5">
@@ -135,11 +164,11 @@ function App() {
         <div class='text-black bg-[#FCCDCD] w-full' >
           <div class="bg-[url(/src/assets/LatteArguende.jpg)] bg-cover bg-no-repeat bg-position-[center_70%] h-70 md:hidden h-3/4 items-end text-xl md:text-4xl flex justify-around ">
             <div class="absolute text-white bg-gradient-to-t w-screen from-[#FCCDCD] from-20% to-transparent md:hidden ">.</div>
-            
+
           </div>
           <div class="md:ml-5 md:mr-15 mx-5">
             <div class="justify-items-end">
-            <p class="md:text-lg consola my-5">No. 00001</p>
+              <p class="md:text-lg consola my-5">No. 00001</p>
             </div>
             <p class="font-pesada text-6xl md:text-6xl">BEBIDAS</p>
             <div class="py-5 text-2xl md:text-3xl ">
