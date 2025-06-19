@@ -1,5 +1,7 @@
 import './App.css';
 import { useEffect, useRef } from 'react';
+import PiJeiImage from './assets/Pi-jei.jpg'; // Import the image
+import LatteArguendeImage from './assets/LatteArguende.jpg';
 
 function App() {
   const containerRef = useRef(null);
@@ -194,7 +196,7 @@ function App() {
         </div>
         <div className="sticky top-25 self-start md:flex hidden md:px-30">
           <img
-            src="src/assets/Pi-jei.jpg"
+            src={PiJeiImage}
             alt="Argüende Food"
             className="object-contain"
           />
@@ -250,7 +252,7 @@ function App() {
         </div>
         <div className="sticky top-25 self-start md:flex hidden md:px-30">
           <img
-            src="src/assets/LatteArguende.jpg"
+            src={LatteArguendeImage}
             alt="Argüende Beverage"
             className="object-contain"
           />

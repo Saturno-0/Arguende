@@ -1,5 +1,7 @@
 import './App.css';
 import HamburgerMenu from './HamburgerMenu.jsx'
+import InstagramImage from '.assets/icon-instagram.png'
+import UberImage from '.assets/icon-uber.png'
 
 function Navbar() {
     return (
@@ -38,12 +40,12 @@ function Navbar() {
             <div className="relative space-x-7 md:space-x-50 md:mr-10">
                  <a href="https://www.instagram.com/arguende_/" target="_blank" className="hover:opacity-70 transition-opacity">
                 <img
-                    src="src/assets/icon-instagram.png"
+                    src={InstagramImage}
                     className="w-9 object-contain hover:opacity-75 transition-opacity"
                 />
                 </a>
                 {/* <img
-                    src="src/assets/icon-uber.png"
+                    src={UberImage}
                     className="w-6 md:w-9 object-contain hover:opacity-75 transition-opacity"
                 /> */}
             </div>
