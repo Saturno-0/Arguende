@@ -172,7 +172,7 @@ function App() {
                     </div>
                     {item.description && (
                       <div className="text-lg md:text-xl md:tracking-wider w-8/10 md:w-6/10">
-                        <p>{item.description}</p>
+                        <p className="font-media">{item.description}</p>
                       </div>
                     )}
                     {item.extras && item.extras.map((extra, extraIndex) => (
