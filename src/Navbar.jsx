@@ -28,7 +28,7 @@ function Navbar() {
             <div className="absolute left-1/2 -translate-x-1/2">
                 <a href="#landing" className="hover:opacity-70 transition-opacity">
                 <img
-                    src="public/logo.png"
+                    src="Logo.png"
                     alt="Argüende"
                     className="object-contain md:w-[18vw]"
                 />

@@ -31,7 +31,7 @@ const HamburgerMenu = () => {
                 ></span>
             </div>
             <ul
-                className={`absolute w-full -top-10 -left-4 pt-10 pb-5 justify-items-center overflow-y-auto bg-white list-none antialiased transform transition-transform duration-600 ease-in-out ${
+                className={`absolute w-full h-screen -top-10 -left-4 pt-10 pb-5 justify-items-center overflow-y-auto bg-white list-none antialiased transform transition-transform duration-600 ease-in-out ${
                     isOpen ? 'translate-x-0 w-screen' : '-translate-x-full w-screen'
                 }`}
             >

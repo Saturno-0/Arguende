@@ -19,17 +19,23 @@
   font-weight: 400; /* normal */
 }
 
-@keyframes slide-up {
-    0% {
-        transform: translateY(50px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
+.text-container {
+  opacity: 0; /* Oculta el elemento inicialmente */
+  transform: translateY(50px); /* Posición inicial para la animación */
 }
 
+
 .animate-slide-up {
-    animation: slide-up 1s ease-out forwards;
+  animation: slideUp 1s ease-in-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(70px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
