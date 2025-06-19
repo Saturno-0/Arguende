@@ -1,4 +1,4 @@
-import './app.css';
+import './App.css';
 import HamburgerMenu from './HamburgerMenu.jsx'
 
 function Navbar() {
