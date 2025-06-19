@@ -1,7 +1,7 @@
 import './App.css';
 import HamburgerMenu from './HamburgerMenu.jsx'
-import InstagramImage from '.assets/icon-instagram.png'
-import UberImage from '.assets/icon-uber.png'
+import InstagramImage from './assets/icon-instagram.png'
+import UberImage from './assets/icon-uber.png'
 
 function Navbar() {
     return (
