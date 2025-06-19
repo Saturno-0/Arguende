@@ -5,9 +5,9 @@ import GithubImage from './assets/icon-github.png';
 function Footer() {
     return (
 
-        <div id="contacto" className="flex " >
+        <div id="contacto" className="relative" >
             <div className='text-[#D0D0CE] bg-[#282828] md:flex md:justify-between md:pr-50'>
-                <div className="md:mx-15 mx-5 mt-10">
+                <div className="md:mx-15 mx-5 pt-10">
                     <p className="font-pesada text-6xl md:text-6xl">CONTACTO</p>
                     <div className="pt-5 pb-10 text-2xl md:text-3xl ">
                         <p>contacto@arguende.mx</p>
