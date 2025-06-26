@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import './App.css'
+import { useState } from 'react';
+import './App.css';
 
 const HamburgerMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="relative z-50 select-none ">
+        <div className="relative z-50 select-none">
             <input
                 type="checkbox"
                 id="menuCheckbox"
-                className="absolute -top-2 -left-1 w-10 h-8 cursor-pointer opacity-0 z-20"
+                className="absolute -top-2 cursor-pointer opacity-0 z-20"
                 checked={isOpen}
                 onChange={() => setIsOpen(!isOpen)}
             />
-            <div className="space-y-1.5 relative z-10">
+            <div className="space-y-1.5 relative z-10 ">
                 <span
                     className={`block w-8 h-1 rounded bg-gray-800 transition-all duration-500 ease-in-out ${
                         isOpen ? 'rotate-45 translate-y-2 bg-gray-800' : ''
@@ -31,32 +31,26 @@ const HamburgerMenu = () => {
                 ></span>
             </div>
             <ul
-                className={`absolute w-full h-screen -top-10 -left-4 pt-10 pb-5 justify-items-center overflow-y-auto bg-white list-none antialiased transform transition-transform duration-600 ease-in-out ${
+                className={`absolute w-full bg-white h-screen flex flex-col -top-10 -left-4 justify-center items-center transform transition-transform duration-600 ease-in-out ${
                     isOpen ? 'translate-x-0 w-screen' : '-translate-x-full w-screen'
                 }`}
             >
-                <li className="py-2 text-3xl">
-                    <a href="#comida" onClick={() => setIsOpen(false)}>
-                        <label  className=" text-gray-800 font-media transition-opacity font-light">
-                            Comida
-                        </label>
+                <li className="py-2 text-3xl text-center">
+                    <a href="#comida" onClick={() => setIsOpen(false)} className="text-gray-800 font-media transition-opacity font-light">
+                        Comida
                     </a>
                 </li>
-                <li className="py-2 text-3xl">
-                    <a href="#bebidas" onClick={() => setIsOpen(false)}>
-                        <label className="text-gray-800 font-media  transition-opacity font-light">
-                            Bebidas
-                        </label>
+                <li className="py-2 text-3xl text-center">
+                    <a href="#bebidas" onClick={() => setIsOpen(false)} className="text-gray-800 font-media transition-opacity font-light">
+                        Bebidas
                     </a>
                 </li>
-                <li className="py-2 text-3xl">
-                    <a href="#contacto" onClick={() => setIsOpen(false)}>
-                        <label className=" text-gray-800 font-media  transition-opacity font-light">
-                            Contacto
-                        </label>
+                <li className="py-2 text-3xl text-center">
+                    <a href="#contacto" onClick={() => setIsOpen(false)} className="text-gray-800 font-media transition-opacity font-light">
+                        Contacto
                     </a>
                 </li>
-                <li className="py-2 text-3xl">
+                <li className="py-2 text-3xl text-center">
                     <a
                         onClick={() => setIsOpen(false)}
                         href="https://www.instagram.com/arguende_/"
@@ -70,6 +64,6 @@ const HamburgerMenu = () => {
             </ul>
         </div>
     );
-}
+};
 
 export default HamburgerMenu;

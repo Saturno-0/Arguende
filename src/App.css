@@ -1,9 +1,48 @@
-
-
-
-* {
+/* Declarar las fuentes con @font-face */
+@font-face {
   font-family: 'Helvetica Neue';
-  font-weight: 100; /* light por defecto */
+  src: url('/HelveticaNeue-Light.woff2') format('woff2'),
+       url('/HelveticaNeue-Light.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('/HelveticaNeue-Regular.woff2') format('woff2'),
+       url('/HelveticaNeue-Regular.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('/HelveticaNeue-Medium.woff2') format('woff2'),
+       url('/HelveticaNeue-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('/HelveticaNeue-Bold.woff2') format('woff2'),
+       url('/HelveticaNeue-Bold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Consolas';
+  src: url('/Consolas-Regular.woff2') format('woff2'),
+       url('/Consolas-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Resto de tu CSS */
+* {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 300; /* light por defecto */
 }
 
 .font-ligera {
@@ -18,8 +57,8 @@
   font-weight: 800;
 }
 
-.consola{
-  font-family: 'Consolas';
+.consola {
+  font-family: 'Consolas', monospace;
   font-weight: 400; /* normal */
 }
 

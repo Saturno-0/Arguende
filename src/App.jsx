@@ -137,8 +137,9 @@ function App() {
 
   return (
     <div ref={containerRef} className='relative bg-white'>
-      <div id="comida" className="flex md:pt-25">
-        <div className="text-black">
+      <div id="comida" className="flex md:pt-25 md:pl-5">
+        <div className="text-black bg-white w-full md:w-3/4">
+          {/* Img Mobile */}
           <div className="bg-[url(/src/assets/Pi-jei.jpg)] bg-cover bg-no-repeat bg-center h-70 md:hidden h-3/4 items-end text-xl md:text-4xl flex justify-around">
             <div className="absolute text-white bg-gradient-to-t w-screen from-white from-20% to-transparent md:hidden">.</div>
             <div>
@@ -148,6 +149,8 @@ function App() {
               <p className="relative font-pesada">RITUAL HABITUAL</p>
             </div>
           </div>
+
+
           <div className="justify-between hidden md:flex text-4xl md:pb-10">
             <div>
               <p className="md:pl-10 font-pesada">@Arguende_</p>
@@ -156,7 +159,7 @@ function App() {
               <p className="font-pesada">RITUAL HABITUAL</p>
             </div>
           </div>
-          <div className="md:mx-15 mx-5">
+          <div className="md:mx-10 mx-5">
             {comidaItems.map((item, index) => (
               <div
                 key={index}
@@ -194,7 +197,7 @@ function App() {
             ))}
           </div>
         </div>
-        <div className="sticky top-25 self-start md:flex hidden md:px-30">
+        <div className="sticky top-20 self-start md:flex hidden md:px-40">
           <img
             src={PiJeiImage}
             alt="Argüende Food"
@@ -203,11 +206,12 @@ function App() {
         </div>
       </div>
       <div id="bebidas" className="flex md:pt-25 md:ml-10">
-        <div className="text-black bg-[#FCCDCD] w-full">
+        <div className="text-black bg-[#FCCDCD] w-full md:w-3/4">
+        {/* Img Mobile */}
           <div className="bg-[url(/src/assets/LatteArguende.jpg)] bg-cover bg-no-repeat bg-[center_70%] h-70 md:hidden h-3/4 items-end text-xl md:text-4xl flex justify-around">
             <div className="absolute text-white bg-gradient-to-t w-screen from-[#FCCDCD] from-20% to-transparent md:hidden">.</div>
           </div>
-          <div className="md:ml-5 md:mr-15 mx-5">
+          <div className="md:px-5 mx-5">
             <div className="justify-items-end">
               <p className="md:text-lg consola my-5">No. 00001</p>
             </div>
@@ -250,7 +254,7 @@ function App() {
             ))}
           </div>
         </div>
-        <div className="sticky top-25 self-start md:flex hidden md:px-30">
+        <div className="sticky top-20 self-start md:flex hidden md:px-40">
           <img
             src={LatteArguendeImage}
             alt="Argüende Beverage"

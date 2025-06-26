@@ -1,16 +1,56 @@
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import './Landing.css';
 import FacadeArguendeImage from './assets/FacadeArguende.jpg';
 
 function Landing() {
+  const [isLogoActive, setIsLogoActive] = useState(false);
+  const [isSplashVisible, setIsSplashVisible] = useState(true);
+
+  useEffect(() => {
+    // Activar la animación del logo después de 400ms
+    const logoTimer = setTimeout(() => {
+      setIsLogoActive(true);
+    }, 400);
+
+    // Ocultar la pantalla de inicio después de 2300ms
+    const splashTimer = setTimeout(() => {
+      setIsSplashVisible(false);
+    }, 2300);
+
+    return () => {
+      clearTimeout(logoTimer);
+      clearTimeout(splashTimer);
+    };
+  }, []);
+
   return (
     <div
       id="landing"
       className="flex h-screen md:justify-end relative overflow-hidden"
     >
+      {/* Pantalla de inicio */}
+      <div
+        className={`fixed h-screen inset-0 bg-[#282828] z-50 bg-none transition-all duration-1000 ${
+          isSplashVisible ? 'top-0' : '-top-full'
+        }`}
+      >
+        <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <img
+            src="Logo-W.png"
+            alt="Argüende"
+            className={`object-contain md:w-[18vw] relative inline-block transition duration-500 ease-in-out ${
+              isLogoActive ? 'bottom-0 opacity-100' : '-bottom-5 opacity-0'
+            }`}
+          />
+        </h1>
+      </div>
+
+      {/* Contenido principal */}
       <img
         src={FacadeArguendeImage}
         alt="Argüende Facade"
-        className="fixed inset-0 object-cover h-screen md:w-[70%]  md:mr-[40%] md:mr-auto"
+        className="fixed inset-0 object-cover h-screen md:w-[70%] md:mr-[40%] md:mr-auto"
       />
       <div className="hidden md:flex bg-gradient-to-r from-transparent from-60% to-[#282828] w-10 z-10"></div>
       <div className="bg-black/30 backdrop-blur-sm rounded-3xl md:rounded-none absolute text-xl md:relative md:my-0 md:items-end self-center mx-15 md:mx-0 md:self-auto md:flex md:bg-[#282828] md:p-15 md:w-1/3 pb-5 px-5">
