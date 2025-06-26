@@ -27,14 +27,19 @@ function Footer() {
                     />
                     <div className="flex justify-self-end space-x-3 items-center text-lg md:text-xl">
                         <p>Coded with 🍳 by Rodrigo Salgado</p>
+                        <a href="https://www.linkedin.com/in/rodrigo-salgado-torres-b35a8a200" target="_blank" className="hover:opacity-70 transition-opacity">
                         <img
                             src={LinkedinImage}
                             className="w-8 object-contain hover:opacity-75 transition-opacity"
                         />
+                        </a>
+                        
+                         <a href="https://github.com/Saturno-0" target="_blank" className="hover:opacity-70 transition-opacity">
                         <img
                             src={GithubImage}
                             className="w-9 object-contain hover:opacity-75 transition-opacity"
                         />
+                        </a>
                     </div>
                 </div>
             </div>
