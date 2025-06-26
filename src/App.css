@@ -1,9 +1,9 @@
-@import url('https://fonts.cdnfonts.com/css/helvetica-neue-55');
+@import url('https://fonts.cdnfonts.com/css/helvetica-neue-5');
 
 /* Resto de tu CSS */
 * {
   font-family: 'Helvetica Neue', sans-serif;
-  font-weight: 100; /* light por defecto */
+  font-weight: 300; /* light por defecto */
 }
 
 .font-media {
