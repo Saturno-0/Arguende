@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import './Landing.css';
 import FacadeArguendeImage from './assets/FacadeArguende.jpg';
 
 function Landing() {
@@ -32,7 +31,7 @@ function Landing() {
       {/* Pantalla de inicio */}
       <div
         className={`fixed h-screen inset-0 bg-[#282828] z-50 bg-none transition-all duration-1000 ${
-          isSplashVisible ? 'top-0' : '-top-full'
+          isSplashVisible ? 'top-0' : '-top-300'
         }`}
       >
         <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">

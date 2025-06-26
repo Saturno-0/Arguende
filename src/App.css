@@ -7,13 +7,6 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'Helvetica Neue';
-  src: url('/HelveticaNeue-Regular.woff2') format('woff2'),
-       url('/HelveticaNeue-Regular.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-}
 
 @font-face {
   font-family: 'Helvetica Neue';
@@ -31,22 +24,11 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'Consolas';
-  src: url('/Consolas-Regular.woff2') format('woff2'),
-       url('/Consolas-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-}
 
 /* Resto de tu CSS */
 * {
   font-family: 'Helvetica Neue', sans-serif;
-  font-weight: 300; /* light por defecto */
-}
-
-.font-ligera {
-  font-weight: 100;
+  font-weight: 100; /* light por defecto */
 }
 
 .font-media {
