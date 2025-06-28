@@ -138,7 +138,7 @@ function App() {
   return (
     <div ref={containerRef} className='relative bg-white'>
       <div id="comida" className="flex md:pt-25 md:pl-5">
-        <div className="text-black bg-white w-full md:w-3/4">
+        <div className="text-black bg-white w-full ">
           {/* Img Mobile */}
           <div className="bg-[url(/src/assets/Pi-jei.jpg)] bg-cover bg-no-repeat bg-center h-70 md:hidden h-3/4 items-end text-xl md:text-4xl flex justify-around">
             <div className="absolute text-white bg-gradient-to-t w-screen from-white from-20% to-transparent md:hidden">.</div>
@@ -197,16 +197,16 @@ function App() {
             ))}
           </div>
         </div>
-        <div className="sticky top-20 self-start md:flex hidden md:px-40">
+        <div className="sticky top-25  self-start md:flex hidden md:px-30">
           <img
             src={PiJeiImage}
             alt="Argüende Food"
-            className="object-contain"
+            className="text-container object-contain shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]  rounded-3xl"
           />
         </div>
       </div>
       <div id="bebidas" className="flex md:pt-25 md:ml-10">
-        <div className="text-black bg-[#FCCDCD] w-full md:w-3/4">
+        <div className="text-black bg-[#FCCDCD] w-full ">
         {/* Img Mobile */}
           <div className="bg-[url(/src/assets/LatteArguende.jpg)] bg-cover bg-no-repeat bg-[center_70%] h-70 md:hidden h-3/4 items-end text-xl md:text-4xl flex justify-around">
             <div className="absolute text-white bg-gradient-to-t w-screen from-[#FCCDCD] from-20% to-transparent md:hidden">.</div>
@@ -254,11 +254,11 @@ function App() {
             ))}
           </div>
         </div>
-        <div className="sticky top-20 self-start md:flex hidden md:px-40">
+        <div className="sticky top-25 self-start md:flex hidden md:px-30 ">
           <img
             src={LatteArguendeImage}
             alt="Argüende Beverage"
-            className="object-contain"
+            className="text-container object-contain shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-3xl"
           />
         </div>
       </div>
