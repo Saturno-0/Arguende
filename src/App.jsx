@@ -101,6 +101,7 @@ function App() {
     },
     { title: 'ESPRESSO', price: '$55', isCoffee: true },
     { title: 'AMERICANO', price: '$65', isCoffee: true },
+    { title: 'COLD BREW', price: '$80', isCoffee: true },
     { title: 'FILTRADOS', price: '*Sujeto al origen de grano*', isCoffee: true, isVariablePrice: true },
     {
       title: '***CON LECHE',
