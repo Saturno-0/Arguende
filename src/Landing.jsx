@@ -49,11 +49,11 @@ function Landing() {
       <img
         src={FacadeArguendeImage}
         alt="Argüende Facade"
-        className="fixed md:inset-0 top-[-50px] object-cover h-screen md:w-[70%] md:mr-[40%] md:mb-0 md:mr-auto"
+        className="fixed inset-0 object-cover h-screen md:w-[70%] md:mr-[40%] md:mb-0 md:mr-auto"
       />
       <div className="hidden md:flex bg-gradient-to-r from-transparent from-60% to-[#282828] w-10 z-10"></div>
       <div className="bg-black/10 backdrop-blur-xs rounded-3xl md:rounded-none absolute text-md md:text-xl md:relative md:my-0 md:items-end self-center mx-15 md:mx-0 md:self-auto md:flex md:bg-[#282828] md:p-15 md:w-1/3 pb-5 px-5">
-        <p className=" text-center font-media md:text-start md:m-0 m-2">
+        <p className=" text-center font-media-italica md:text-start md:m-0 m-2">
           Argüende no se limita a ser una cafetería; es un espacio diseñado para
           capturar la esencia del ritual diario, destacando la simplicidad y
           autenticidad en cada taza.

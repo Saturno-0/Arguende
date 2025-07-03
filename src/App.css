@@ -13,6 +13,11 @@
   font-weight: 900;
 }
 
+.font-media-italica {
+  font-style: italic;
+  font-weight: 500;
+}
+
 .font-media {
   font-weight: 500;
 }
