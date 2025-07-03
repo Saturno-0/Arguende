@@ -28,7 +28,7 @@ function Landing() {
       id="landing"
       className="flex h-screen md:justify-end relative overflow-hidden"
     >
-      {/* Pantalla de inicio */}
+      {/* Splash */}
       <div
         className={`fixed h-screen inset-0 bg-[#282828] z-50 bg-none transition-all duration-1000 ${
           isSplashVisible ? 'top-0' : '-top-300'
@@ -49,7 +49,7 @@ function Landing() {
       <img
         src={FacadeArguendeImage}
         alt="Argüende Facade"
-        className="fixed inset-0 object-cover h-screen md:w-[70%] md:mr-[40%] md:mr-auto"
+        className="fixed md:inset-0 top-[-50px] object-cover h-screen md:w-[70%] md:mr-[40%] md:mb-0 md:mr-auto"
       />
       <div className="hidden md:flex bg-gradient-to-r from-transparent from-60% to-[#282828] w-10 z-10"></div>
       <div className="bg-black/10 backdrop-blur-xs rounded-3xl md:rounded-none absolute text-md md:text-xl md:relative md:my-0 md:items-end self-center mx-15 md:mx-0 md:self-auto md:flex md:bg-[#282828] md:p-15 md:w-1/3 pb-5 px-5">
@@ -60,7 +60,7 @@ function Landing() {
           <br />
           <br />
           Este proyecto es simplemente nuestra manera de compartir lo que nos
-          gusta: hacer buen café y disfrutarlo.
+          gusta; hacer buen café y disfrutarlo.
         </p>
       </div>
     </div>
