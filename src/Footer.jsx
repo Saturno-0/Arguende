@@ -9,10 +9,10 @@ function Footer() {
             <div className='text-[#D0D0CE] bg-[#282828] md:flex md:justify-between md:pr-50'>
                 <div className="md:mx-15 mx-5 pt-10">
                     <p className="font-pesada text-6xl md:text-6xl">CONTACTO</p>
-                    <div className="pt-5 pb-10 text-2xl md:text-3xl ">
+                    <div className=" pb-15 text-2xl md:text-3xl ">
                         <p>contacto@arguende.mx</p>
                     </div>
-                    <div className="py-5 text-2xl md:text-3xl w-9/11">
+                    <div className=" text-2xl md:text-3xl w-9/11">
                         <p>Blvd. García de León 1360, Morelia, Mich.</p>
                     </div>
                     <div className="text-lg md:text-xl md:pb-20 w-9/11">

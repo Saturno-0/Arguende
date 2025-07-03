@@ -5,6 +5,13 @@
   font-family: 'Helvetica Neue', sans-serif;
   font-weight: 300; /* light por defecto */
 }
+.font-negritas{
+  font-weight: 900;
+}
+.font-italica {
+  font-style: italic;
+  font-weight: 900;
+}
 
 .font-media {
   font-weight: 500;

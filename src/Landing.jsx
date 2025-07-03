@@ -10,12 +10,12 @@ function Landing() {
     // Activar la animación del logo después de 400ms
     const logoTimer = setTimeout(() => {
       setIsLogoActive(true);
-    }, 400);
+    }, 500);
 
     // Ocultar la pantalla de inicio después de 2300ms
     const splashTimer = setTimeout(() => {
       setIsSplashVisible(false);
-    }, 2300);
+    }, 1500);
 
     return () => {
       clearTimeout(logoTimer);
@@ -41,7 +41,7 @@ function Landing() {
             className={`object-contain md:w-[18vw] relative inline-block transition duration-500 ease-in-out ${
               isLogoActive ? 'bottom-0 opacity-100' : '-bottom-5 opacity-0'
             }`}
-          />
+          />  
         </h1>
       </div>
 

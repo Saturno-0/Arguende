@@ -53,17 +53,17 @@ function App() {
     {
       title: 'EL SAPICHU',
       price: '$90',
-      description: 'Medallón de atún sellado, marinado con limón amarillo y aceite de oliva, montado en tortilla de maíz azul. Cebollita encurtida con limón, serrano y piña.',
+      description: 'Taco de atún sellado, marinado con limón amarillo y aceite de oliva. Montado sobre un cremoso de aguacate con cebollitas encurtidas con limón, serrano y piña.',
       extras: [
-        { text: '-Añade queso', price: '+ $15' },
+        { text: '-Añade queso gouda', price: '+ $15' },
       ],
     },
     {
       title: 'ECHANDO TAQUETE',
       price: '$80',
-      description: 'Taco veggie estilo ensenada, preparado con setas, ensalada de col morada y zanahoria con un toque de cebollita encurtida con limón y serrano.',
+      description: 'Taco veggie estilo ensenada, preparado con setas, ensalada de col morada y zanahoria.',
       extras: [
-        { text: '-Añade queso', price: '+ $15' },
+        { text: '-Añade queso gouda', price: '+ $15' },
       ],
     },
     {
@@ -95,13 +95,23 @@ function App() {
       title: 'CAFÉ :',
       isSubHeader: true,
     },
+    {
+      title: '***SIN LECHE',
+      isUnder: true,
+    },
     { title: 'ESPRESSO', price: '$55', isCoffee: true },
-    { title: 'CORTADO', price: '$60', isCoffee: true },
     { title: 'AMERICANO', price: '$65', isCoffee: true },
+    { title: 'FILTRADOS', price: '*Sujeto al origen de grano*', isCoffee: true, isVariablePrice: true },
+    {
+      title: '***CON LECHE',
+      isUnder: true,
+    },
     { title: 'CAPUCCINO', price: '$70', isCoffee: true },
+    { title: 'CORTADO', price: '$60', isCoffee: true },
     { title: 'FLAT WHITE', price: '$65', isCoffee: true },
     { title: 'LATTE', price: '$65', isCoffee: true },
-    { title: 'FILTRADOS', price: '*Sujeto al origen de grano*', isCoffee: true, isVariablePrice: true },
+    {
+      title: '*Extra leche vegetal*', price: '+ $12', isExtra: true},
     {
       title: 'ALTERNATIVAS :',
       isSubHeader: true,
@@ -111,7 +121,6 @@ function App() {
       title: 'SMOOTHIE',
       price: '$65',
       description: 'Leche, plátano, dátil y shot de espresso.',
-      
     },
     {
       title: 'JUGO BOMBIUX',
@@ -143,7 +152,7 @@ function App() {
           <div className="bg-[url(/src/assets/Pi-jei.jpg)] bg-cover bg-no-repeat bg-center h-70 md:hidden h-3/4 items-end text-xl md:text-4xl flex justify-around">
             <div className="absolute text-white bg-gradient-to-t w-screen from-white from-20% to-transparent md:hidden">.</div>
             <div>
-              <p className="relative font-pesada">@Arguende_</p>
+              <p className="relative font-pesada">@arguende_</p>
             </div>
             <div>
               <p className="relative font-pesada">RITUAL HABITUAL</p>
@@ -151,9 +160,9 @@ function App() {
           </div>
 
 
-          <div className="justify-between hidden md:flex text-4xl md:pb-10">
+          <div className="justify-between hidden md:flex text-4xl ">
             <div>
-              <p className="md:pl-10 font-pesada">@Arguende_</p>
+              <p className="md:pl-10 font-pesada">@arguende_</p>
             </div>
             <div>
               <p className="font-pesada">RITUAL HABITUAL</p>
@@ -163,7 +172,7 @@ function App() {
             {comidaItems.map((item, index) => (
               <div
                 key={index}
-                className={`text-container ${item.isHeader ? 'pt-10' : 'py-5'}`}
+                className={`text-container ${item.isHeader ? 'md:py-10 pt-10 pb-5' : 'pb-5'}`}
               >
                 {item.isHeader ? (
                   <p className="font-pesada text-6xl md:text-6xl">{item.title}</p>
@@ -174,8 +183,8 @@ function App() {
                       <p className="font-pesada">{item.price}</p>
                     </div>
                     {item.description && (
-                      <div className="text-lg md:text-xl md:tracking-wider w-8/10 md:w-6/10">
-                        <p className="">{item.description}</p>
+                      <div className=" md:tracking-wider w-15/17 md:w-6/10">
+                        <p className="text-sm md:text-xl">{item.description}</p>
                       </div>
                     )}
                     {item.extras && item.extras.map((extra, extraIndex) => (
@@ -193,7 +202,7 @@ function App() {
                     ))}
                   </>
                 )}
-              </div>
+              </div >
             ))}
           </div>
         </div>
@@ -213,38 +222,51 @@ function App() {
           </div>
           <div className="md:px-5 mx-5">
             <div className="justify-items-end">
-              <p className="md:text-lg consola my-5">No. 00001</p>
+             
             </div>
             {bebidasItems.map((item, index) => (
               <div
                 key={index}
-                className={`text-container ${item.isHeader || item.isSubHeader ? 'py-5' : item.isFooter ? 'text-xl md:text-4xl my-10 mt-10 text-white flex justify-between' : ''}`}
+                className={`text-container ${item.isHeader ? 'pt-6' : item.isSubHeader ? 'pt-7 pb-5' : item.isFooter ? 'text-xl md:text-4xl my-10 text-white flex justify-between' : ''}`}
               >
                 {item.isHeader ? (
-                  <p className="font-pesada text-6xl md:text-6xl">{item.title}</p>
+                  <p className="font-pesada text-6xl  md:text-6xl">{item.title}</p>
                 ) : item.isSubHeader ? (
                   <p className="font-pesada text-2xl md:text-3xl">{item.title}</p>
                 ) : item.isFooter ? (
                   <>
                     <div>
-                      <p className="font-pesada">@Arguende_</p>
+                      <p className="font-pesada">@arguende_</p>
                     </div>
                     <div>
                       <p className="font-pesada">RITUAL HABITUAL</p>
                     </div>
                   </>
+                ) : item.isUnder ? (
+                  <>
+                    <div>
+                      <p className="font-italica my-3">{item.title}</p>
+                    </div>
+                  </>
+                ) : item.isExtra ? (
+                  <>
+                    <div className="flex justify-end items-center">
+                      <p className="font-negritas text-sm md:mr-0 mr-3">{item.title} </p>
+                      <p className="font-pesada md:pl-10 text-xl md:text-2xl">{item.price}</p>
+                    </div>
+                  </>
                 ) : (
                   <>
                     <div className="flex justify-between text-2xl items-center md:text-3xl">
-                      <p className={`font-media ${item.isCoffee  ? 'text-lg md:text-xl' : 'text-lg md:text-xl pt-4'}`}>
+                      <p className={`font-media ${item.isCoffee  ? 'text-lg md:text-xl' : 'pt-2 text-lg md:text-xl'}`}>
                         {item.title}
                       </p>
-                      <p className={`${item.isVariablePrice ? 'text-lg' : 'font-pesada'}`}>
+                      <p className={`${item.isVariablePrice ? 'text-sm font-pesada' : 'font-pesada'}`}>
                         {item.price}
                       </p>
                     </div>
                     {item.description && (
-                      <div className="text-lg md:text-xl py-0 md:w-6/10 w-8/10">
+                      <div className="text-sm md:text-xl ">
                         <p>{item.description}</p>
                       </div>
                     )}
