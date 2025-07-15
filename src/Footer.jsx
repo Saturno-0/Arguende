@@ -10,7 +10,7 @@ function Footer() {
                 <div className="md:mx-15 mx-5 pt-10">
                     <p className="font-pesada text-6xl md:text-6xl">CONTACTO</p>
                     <div className=" pb-15 text-2xl md:text-3xl ">
-                        <p>contacto@arguende.mx</p>
+                        <p>arguende.ritual@gmail.com</p>
                     </div>
                     <div className=" text-2xl md:text-3xl w-9/11">
                         <p>Blvd. García de León 1360, Morelia, Mich.</p>
