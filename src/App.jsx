@@ -107,7 +107,6 @@ function App() {
     { title: 'AMERICANO', price: '$65', isCoffee: true },
     { title: 'COLD BREW', price: '$80', isCoffee: true },
     { title: 'FILTRADOS', price: '*Sujeto al origen de grano*', isCoffee: true, isVariablePrice: true },
-    { title: 'AFFOGATO', price: '$90', isCoffee: true },
     {
       title: '***CON LECHE',
       isUnder: true,
@@ -118,6 +117,7 @@ function App() {
     { title: 'LATTE', price: '$65', isCoffee: true },
     {
       title: '*Extra leche vegetal*', price: '+ $12', isExtra: true},
+    { title: 'AFFOGATO', price: '$90', isCoffee: true },
     {
       title: 'ALTERNATIVAS :',
       isSubHeader: true,
