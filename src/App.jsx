@@ -84,6 +84,10 @@ function App() {
       price: '$60',
       description: 'Pan de caja tostado con crema de cacahuate y mermelada de la casa.',
     },
+    {
+      title: 'CHEESECAKE DE MANGO',
+      price: '$90',
+    },
   ];
 
   const bebidasItems = [
@@ -103,6 +107,7 @@ function App() {
     { title: 'AMERICANO', price: '$65', isCoffee: true },
     { title: 'COLD BREW', price: '$80', isCoffee: true },
     { title: 'FILTRADOS', price: '*Sujeto al origen de grano*', isCoffee: true, isVariablePrice: true },
+    { title: 'AFFOGATO', price: '$90', isCoffee: true },
     {
       title: '***CON LECHE',
       isUnder: true,
