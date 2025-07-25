@@ -2,6 +2,7 @@ import './App.css';
 import HamburgerMenu from './HamburgerMenu.jsx'
 import InstagramImage from './assets/icon-instagram.png'
 import UberImage from './assets/icon-uber.png'
+import WhatsImage from './assets/icon-whatsapp.png'
 
 function Navbar() {
     return (
@@ -37,17 +38,19 @@ function Navbar() {
                 </a>
             </div>
 
-            <div className="relative space-x-7 md:space-x-50 md:mr-10">
+            <div className="flex space-x-7 md:space-x-50 md:mr-10">
                  <a href="https://www.instagram.com/arguende_/" target="_blank" className="hover:opacity-70 transition-opacity">
                 <img
                     src={InstagramImage}
                     className="w-9 object-contain hover:opacity-75 transition-opacity"
                 />
                 </a>
-                {/* <img
-                    src={UberImage}
-                    className="w-6 md:w-9 object-contain hover:opacity-75 transition-opacity"
-                /> */}
+                <a href="https://wa.me/523331780373" target="_blank" className="hover:opacity-70 transition-opacity">
+                <img
+                    src={WhatsImage}
+                    className="hidden md:flex w-9 md:w-9 object-contain hover:opacity-75 transition-opacity"
+                />
+                </a> 
             </div>
         </nav >
     );

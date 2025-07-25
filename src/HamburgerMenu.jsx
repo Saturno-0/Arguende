@@ -61,6 +61,17 @@ const HamburgerMenu = () => {
                         Instagram
                     </a>
                 </li>
+                <li className="py-2 text-3xl text-center">
+                    <a
+                        onClick={() => setIsOpen(false)}
+                        href="https://wa.me/523331780373"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-800 font-media hover:opacity-70 transition-opacity font-light"
+                    >
+                        WhatsApp
+                    </a>
+                </li>
             </ul>
         </div>
     );

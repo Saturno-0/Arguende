@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { fetchCloudinaryImages, cloudinaryConfig } from "../config/cloudinary"
 
@@ -14,7 +12,7 @@ const ImageCarousel = ({ isVisible, onClose }) => {
     if (isVisible) {
       loadImages()
     }
-  }, [isVisible])
+  }, [isVisible]) 
 
   const loadImages = async () => {
     setLoading(true)
@@ -95,7 +93,7 @@ const ImageCarousel = ({ isVisible, onClose }) => {
               )}
 
               <img
-                src={`https://res.cloudinary.com/${cloudinaryConfig.cloudName}/image/upload/w_800,h_600,c_fit,q_auto,f_auto/${images[currentIndex].public_id}`}
+                src={`https://res.cloudinary.com/${cloudinaryConfig.cloudName}/image/upload/w_800,h_600,c_fit,q_auto:best,e_improve,f_auto/${images[currentIndex].public_id}`}
                 alt={`Carousel image ${currentIndex + 1}`}
                 className="max-w-full max-h-full object-contain rounded-2xl shadow-lg"
                 onLoad={() => setImageLoading(false)}
