@@ -42,8 +42,8 @@ function Footer() {
                         alt="Argüende Tagline"
                         className=" object-contain"
                     />
-                    <div className="flex justify-self-end space-x-3 items-center text-xs md:text-md">
-                        <p>Coded with 🍳 by Rodrigo Salgado</p>
+                    <div className="flex justify-end space-x-3 items-center text-xs md:text-md">
+                        <p>Coded by Rodrigo Salgado</p>
                         <a href="https://www.linkedin.com/in/rodrigo-salgado-torres-b35a8a200" target="_blank" className="hover:opacity-70 transition-opacity">
                         <img
                             src={LinkedinImage}
