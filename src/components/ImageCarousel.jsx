@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { fetchCloudinaryImages, cloudinaryConfig } from "../../config/cloudinary"
+import { fetchCloudinaryImages, cloudinaryConfig } from "../config/cloudinary"
 
 const ImageCarousel = ({ isVisible, onClose }) => {
   const [images, setImages] = useState([])
@@ -21,17 +21,14 @@ const ImageCarousel = ({ isVisible, onClose }) => {
     setError(null)
 
     try {
-      console.log("Starting to load images...")
       const cloudinaryImages = await fetchCloudinaryImages("carousel")
-      console.log("Loaded images:", cloudinaryImages)
 
       if (cloudinaryImages.length === 0) {
-        setError("No images found. Check console for details.")
+        setError("No images found in carousel folder")
+      } else {
+        setImages(cloudinaryImages)
       }
-
-      setImages(cloudinaryImages)
     } catch (error) {
-      console.error("Failed to load images:", error)
       setError(`Failed to load images: ${error.message}`)
     } finally {
       setLoading(false)
@@ -74,20 +71,18 @@ const ImageCarousel = ({ isVisible, onClose }) => {
             <p>Loading images...</p>
           </div>
         ) : error ? (
-          <div className="flex flex-col items-center justify-center h-full text-white p-8">
+          <div className="flex flex-col items-center justify-center h-full text-white p-8 text-center">
             <p className="text-red-400 mb-4">{error}</p>
             <button
               onClick={loadImages}
               className="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
             >
-              Retry
+              Try Again
             </button>
-            <p className="text-sm mt-4 text-gray-300">Cloud name: {cloudinaryConfig.cloudName}</p>
           </div>
         ) : images.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-white">
-            <p>No images found in Cloudinary</p>
-            <p className="text-sm mt-2 text-gray-300">Check console for debugging info</p>
+            <p>No images found in carousel folder</p>
           </div>
         ) : (
           <>
@@ -104,10 +99,7 @@ const ImageCarousel = ({ isVisible, onClose }) => {
                 alt={`Carousel image ${currentIndex + 1}`}
                 className="max-w-full max-h-full object-contain rounded-2xl shadow-lg"
                 onLoad={() => setImageLoading(false)}
-                onError={(e) => {
-                  console.error("Image load error:", e.target.src)
-                  setImageLoading(false)
-                }}
+                onError={() => setImageLoading(false)}
               />
             </div>
 
