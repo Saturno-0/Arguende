@@ -44,7 +44,7 @@ function App() {
     },
     {
       title: 'NIÑO LINDO',
-      price: '$110',
+      price: '$135',
       description: 'Tostado con durazno asado, burrata, verdolaga y miel infusionada con habanero.',
       extras: [
         { text: '¡Hazlo salado! Añade jamon serrano', price: '+ $15' },
@@ -86,7 +86,7 @@ function App() {
     },
     {
       title: 'CHEESECAKE DE MANGO',
-      price: '$90',
+      price: '$85',
     },
   ];
 
@@ -103,29 +103,29 @@ function App() {
       title: '***SIN LECHE',
       isUnder: true,
     },
-    { title: 'ESPRESSO', price: '$55', isCoffee: true },
-    { title: 'AMERICANO', price: '$65', isCoffee: true },
+    { title: 'ESPRESSO', price: '$60', isCoffee: true },
+    { title: 'AMERICANO', price: '$75', isCoffee: true },
     { title: 'COLD BREW', price: '$80', isCoffee: true },
     { title: 'FILTRADOS', price: '*Sujeto al origen de grano*', isCoffee: true, isVariablePrice: true },
     {
       title: '***CON LECHE',
       isUnder: true,
     },
-    { title: 'CAPUCCINO', price: '$70', isCoffee: true },
-    { title: 'CORTADO', price: '$60', isCoffee: true },
-    { title: 'FLAT WHITE', price: '$65', isCoffee: true },
-    { title: 'LATTE', price: '$65', isCoffee: true },
+    { title: 'CAPUCCINO', price: '$80', isCoffee: true },
+    { title: 'CORTADO', price: '$65', isCoffee: true },
+    { title: 'FLAT WHITE', price: '$75', isCoffee: true },
+    { title: 'LATTE', price: '$75', isCoffee: true },
     {
-      title: '*Extra leche vegetal*', price: '+ $12', isExtra: true},
+      title: '*Extra leche vegetal*', price: '+ $15', isExtra: true},
     { title: 'AFFOGATO', price: '$90', isCoffee: true },
     {
       title: 'ALTERNATIVAS :',
       isSubHeader: true,
     },
-    { title: 'MATCHA CEREMONIAL', price: '$65' },
+    { title: 'MATCHA CEREMONIAL', price: '$80' },
     {
       title: 'SMOOTHIE',
-      price: '$65',
+      price: '$75',
       description: 'Leche, plátano, dátil y shot de espresso.',
     },
     {
@@ -135,7 +135,7 @@ function App() {
     },
     {
       title: 'DE ANTAÑO',
-      price: '$55',
+      price: '$60',
       description: 'Betabel y zanahoria.'
     },
     {
