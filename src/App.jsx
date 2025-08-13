@@ -111,7 +111,7 @@ function App() {
       title: '***CON LECHE',
       isUnder: true,
     },
-    { title: 'CAPUCCINO', price: '$80', isCoffee: true },
+    { title: 'CAPUCHINO', price: '$80', isCoffee: true },
     { title: 'CORTADO', price: '$65', isCoffee: true },
     { title: 'FLAT WHITE', price: '$75', isCoffee: true },
     { title: 'LATTE', price: '$75', isCoffee: true },
