@@ -32,11 +32,11 @@ function Footer() {
                     <div className=" text-2xl md:text-3xl w-9/11">
                         <p>Blvd. García de León 1360, Morelia, Mich.</p>
                     </div>
-                    <div className="text-lg md:text-xl md:pb-20 w-9/11">
-                        <p>Lunes a Miércoles 8 am - 6 pm. \n
-                            Jueves a Sábado 8 am - 8 pm. \n
-                            Domingo Descansamos
-                        </p>
+                    <div className="text-lg md:text-xl md:pb-20 md:pt-5 w-9/11">
+                        <p>Lunes a Miércoles 8 am - 6 pm. </p>
+                        <p>Jueves a Sábado 8 am - 8 pm. </p>
+                        <p>Domingo Descansamos  </p>
+                        
                     </div>
                 </div>
                 <div>

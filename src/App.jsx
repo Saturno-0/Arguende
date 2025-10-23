@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useRef } from 'react';
-import MuffinHuevoImage from './assets/Muffin de huevo.jpg'; // Import the image
+import MuffinHuevoImage from './assets/Muffin-de-huevo.jpg'; // Import the image
 import LatteArguendeImage from './assets/LatteArguende.jpg';
 
 function App() {
@@ -223,7 +223,7 @@ function App() {
             ))}
           </div>
         </div>
-        <div className="sticky top-25  self-start md:flex hidden md:px-30">
+        <div className="sticky top-25 md:w-3/4 self-start md:flex hidden md:px-30">
           <img
             src={MuffinHuevoImage}
             alt="Argüende Food"
@@ -283,7 +283,7 @@ function App() {
                       </p>
                     </div>
                     {item.description && (
-                      <div className="text-sm md:text-xl ">
+                      <div className="text-sm md:text-xl md:w-7/8">
                         <p>{item.description}</p>
                       </div>
                     )}
