@@ -33,7 +33,10 @@ function Footer() {
                         <p>Blvd. García de León 1360, Morelia, Mich.</p>
                     </div>
                     <div className="text-lg md:text-xl md:pb-20 w-9/11">
-                        <p>Lunes a Sábado 8 am - 6 pm.</p>
+                        <p>Lunes a Miércoles 8 am - 6 pm. \n
+                            Jueves a Sábado 8 am - 8 pm. \n
+                            Domingo Descansamos
+                        </p>
                     </div>
                 </div>
                 <div>
@@ -51,7 +54,7 @@ function Footer() {
                         />
                         </a>
                         
-                         <a href="https://github.com/Saturno-0" target="_blank" className="hover:opacity-70 transition-opacity">
+                        <a href="https://github.com/Saturno-0" target="_blank" className="hover:opacity-70 transition-opacity">
                         <img
                             src={GithubImage}
                             className="w-6 object-contain hover:opacity-75 transition-opacity"

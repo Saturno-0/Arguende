@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useRef } from 'react';
-import PiJeiImage from './assets/Pi-jei.jpg'; // Import the image
+import MuffinHuevoImage from './assets/Muffin de huevo.jpg'; // Import the image
 import LatteArguendeImage from './assets/LatteArguende.jpg';
 
 function App() {
@@ -36,6 +36,11 @@ function App() {
     {
       title: 'COMIDA',
       isHeader: true,
+    },
+    {
+      title: 'MUFFIN DE HUEVO',
+      price: '$150',
+      description: 'El más sabroso.\n Pan brioche, huevos estrellados, chutney de cebolla con tocino, pepinillos encurtidos, arúgula, alioli de ajo, cebollín, mostaza dijon y queso cheddar.',
     },
     {
       title: 'MENEMEN',
@@ -122,7 +127,13 @@ function App() {
       title: 'ALTERNATIVAS :',
       isSubHeader: true,
     },
-    { title: 'MATCHA CEREMONIAL', price: '$80' },
+    { title: 'MATCHA CEREMONIAL',
+      price: '$80', 
+    },
+    { title: 'CHAI',
+      price: '$80',
+      description: 'Mezcla de jengibre, cardamomo, regaliz, albahaca y ashwagandha. Pídelo caliente o frío.',
+    },
     {
       title: 'SMOOTHIE',
       price: '$75',
@@ -155,7 +166,7 @@ function App() {
       <div id="comida" className="flex md:pt-25 md:pl-5">
         <div className="text-black bg-white w-full ">
           {/* Img Mobile */}
-          <div className="bg-[url(/src/assets/Pi-jei.jpg)] bg-cover bg-no-repeat bg-center h-70 md:hidden h-3/4 items-end text-xl md:text-4xl flex justify-around">
+          <div className="bg-[url(/src/assets/Muffin-de-huevo.jpg)] bg-cover bg-no-repeat bg-center h-70 md:hidden h-3/4 items-end text-xl md:text-4xl flex justify-around">
             <div className="absolute text-white bg-gradient-to-t w-screen from-white from-20% to-transparent md:hidden">.</div>
             <div>
               <p className="relative font-pesada">@arguende_</p>
@@ -214,7 +225,7 @@ function App() {
         </div>
         <div className="sticky top-25  self-start md:flex hidden md:px-30">
           <img
-            src={PiJeiImage}
+            src={MuffinHuevoImage}
             alt="Argüende Food"
             className="text-container object-contain shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]  rounded-3xl"
           />
@@ -228,7 +239,7 @@ function App() {
           </div>
           <div className="md:px-5 mx-5">
             <div className="justify-items-end">
-             
+            
             </div>
             {bebidasItems.map((item, index) => (
               <div
