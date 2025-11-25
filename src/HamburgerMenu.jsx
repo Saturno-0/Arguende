@@ -72,6 +72,17 @@ const HamburgerMenu = () => {
                         WhatsApp
                     </a>
                 </li>
+                <li className="py-2 text-3xl text-center">
+                    <a
+                        onClick={() => setIsOpen(false)}
+                        href="https://www.ubereats.com/mx/store/arguende/bkrhFt4JVQuljpyblah9CQ?diningMode=DELIVERY&ps=1&surfaceName="
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-800 font-media hover:opacity-70 transition-opacity font-light"
+                    >
+                        Uber Eats
+                    </a>
+                </li>
             </ul>
         </div>
     );
