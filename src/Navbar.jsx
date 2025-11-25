@@ -8,7 +8,7 @@ function Navbar() {
     return (
         <nav className="fixed flex justify-between items-center h-25 w-full z-50 px-4 py-7 bg-gradient-to-b from-white to-transparent ">
             <div className="md:hidden">
-             <HamburgerMenu />
+            <HamburgerMenu />
             </div>
             <div className="hidden md:flex  md:space-x-10">
                 <a href="#comida" className="hover:opacity-70 transition-opacity">
@@ -21,7 +21,7 @@ function Navbar() {
                     Bebidas
                 </span>
                 </a>
-                 <a href="#contacto" className="hover:opacity-70 transition-opacity">
+                <a href="#contacto" className="hover:opacity-70 transition-opacity">
                 <span className="text-gray-800 font-light md:text-3xl">
                     Contacto
                 </span>
@@ -38,8 +38,8 @@ function Navbar() {
                 </a>
             </div>
 
-            <div className="flex space-x-7 md:space-x-50 md:mr-10">
-                 <a href="https://www.instagram.com/arguende_/" target="_blank" className="hover:opacity-70 transition-opacity">
+            <div className="flex space-x-2 md:space-x-20 md:mr-10">
+                <a href="https://www.instagram.com/arguende_/" target="_blank" className="hover:opacity-70 transition-opacity">
                 <img
                     src={InstagramImage}
                     className="w-9 object-contain hover:opacity-75 transition-opacity"
@@ -49,6 +49,12 @@ function Navbar() {
                 <img
                     src={WhatsImage}
                     className="hidden md:flex w-9 md:w-9 object-contain hover:opacity-75 transition-opacity"
+                />
+                </a>
+                <a href="https://www.ubereats.com/mx/store/arguende/bkrhFt4JVQuljpyblah9CQ?diningMode=DELIVERY&ps=1&surfaceName=" target="_blank" className="hover:opacity-70 transition-opacity">
+                <img
+                    src={UberImage}
+                    className="w-9 object-contain hover:opacity-75 transition-opacity"
                 />
                 </a> 
             </div>

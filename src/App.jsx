@@ -185,7 +185,7 @@ function App() {
               <p className="font-pesada">RITUAL HABITUAL</p>
             </div>
           </div>
-          <div className="md:mx-10 mx-5">
+          <div className="md:mx-10 mx-5 relative z-0">
             {comidaItems.map((item, index) => (
               <div
                 key={index}
@@ -234,7 +234,7 @@ function App() {
       <div id="bebidas" className="flex md:pt-25 md:ml-10">
         <div className="text-black bg-[#FCCDCD] w-full ">
         {/* Img Mobile */}
-          <div className="bg-[url(/src/assets/LatteArguende.jpg)] bg-cover bg-no-repeat bg-[center_70%] h-70 md:hidden h-3/4 items-end text-xl md:text-4xl flex justify-around">
+          <div className="bg-[url(/src/assets/LatteArguende.jpg)] bg-cover bg-no-repeat bg-[center_70%] h-70 md:hidden h-3/4 items-end text-xl md:text-4xl flex justify-around relative z-10">
             <div className="absolute text-white bg-gradient-to-t w-screen from-[#FCCDCD] from-20% to-transparent md:hidden">.</div>
           </div>
           <div className="md:px-5 mx-5">

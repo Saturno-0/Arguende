@@ -3,6 +3,7 @@ import LinkedinImage from './assets/icon-linkedin.png';
 import GithubImage from './assets/icon-github.png';
 import WhatsImage from './assets/icon-whatsapp-w.png';
 import InstagramImage from './assets/icon-instagram-w.png';
+import UberImage from './assets/icon-uber-w.png';
 
 
 function Footer() {
@@ -25,6 +26,12 @@ function Footer() {
                         <a href="https://wa.me/523331780373" target="_blank" className="hover:opacity-70 transition-opacity">
                             <img
                                 src={WhatsImage}
+                                className=" w-9 px-1 object-contain hover:opacity-75 transition-opacity"
+                            />
+                        </a>
+                        <a href="https://www.ubereats.com/mx/store/arguende/bkrhFt4JVQuljpyblah9CQ?diningMode=DELIVERY&ps=1&surfaceName=" target="_blank" className="hover:opacity-70 transition-opacity">
+                            <img
+                                src={UberImage}
                                 className=" w-9 px-1 object-contain hover:opacity-75 transition-opacity"
                             />
                         </a>
