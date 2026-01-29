@@ -39,7 +39,7 @@ function App() {
     },
     {
       title: 'MUFFIN DE HUEVO',
-      price: '$150',
+      price: '$160',
       description: 'El más sabroso.\n Pan brioche, huevos estrellados, chutney de cebolla con tocino, pepinillos encurtidos, arúgula, alioli de ajo, cebollín, mostaza dijon y queso cheddar.',
     },
     {
@@ -49,7 +49,7 @@ function App() {
     },
     {
       title: 'NIÑO LINDO',
-      price: '$135',
+      price: '$190',
       description: 'Tostado con durazno asado, burrata, verdolaga y miel infusionada con habanero.',
       extras: [
         { text: '¡Hazlo salado! Añade jamon serrano', price: '+ $15' },
@@ -60,28 +60,20 @@ function App() {
       price: '$90',
       description: 'Taco de atún sellado, marinado con limón amarillo y aceite de oliva. Montado sobre un cremoso de aguacate con cebollitas encurtidas con limón, serrano y piña.',
       extras: [
-        { text: '-Añade queso gouda', price: '+ $15' },
-      ],
-    },
-    {
-      title: 'ECHANDO TAQUETE',
-      price: '$80',
-      description: 'Taco veggie estilo ensenada, preparado con setas, ensalada de col morada y zanahoria.',
-      extras: [
-        { text: '-Añade queso gouda', price: '+ $15' },
+        { text: '-Añade queso gouda', price: '+ $20' },
       ],
     },
     {
       title: 'PAN FRANCÉS',
-      price: '$95',
+      price: '$120',
       description: 'Infalible, acompañado de fruta de temporada.',
     },
     {
       title: 'AVENITA',
-      price: '$55',
+      price: '$65',
       description: "Cocida en agua con un toque de leche y canela. Pera, nuez de castilla y un 'chin' de miel de agave.",
       extras: [
-        { text: '-Añade: Yogurt griego/Crema de cacahuate', price: '+ $15', isSmall: true,},
+        { text: '-Añade: Yogurt griego/Crema de cacahuate', price: '+ $20', isSmall: true,},
       ],
     },
     {
@@ -91,7 +83,7 @@ function App() {
     },
     {
       title: 'CHEESECAKE DE MANGO',
-      price: '$85',
+      price: '$90',
     },
   ];
 
@@ -110,16 +102,16 @@ function App() {
     },
     { title: 'ESPRESSO', price: '$60', isCoffee: true },
     { title: 'AMERICANO', price: '$75', isCoffee: true },
-    { title: 'COLD BREW', price: '$80', isCoffee: true },
+    { title: 'COLD BREW', price: '$90', isCoffee: true },
     { title: 'FILTRADOS', price: '*Sujeto al origen de grano*', isCoffee: true, isVariablePrice: true },
     {
       title: '***CON LECHE',
       isUnder: true,
     },
-    { title: 'CAPUCHINO', price: '$80', isCoffee: true },
+    { title: 'CAPUCHINO', price: '$85', isCoffee: true },
     { title: 'CORTADO', price: '$65', isCoffee: true },
-    { title: 'FLAT WHITE', price: '$75', isCoffee: true },
-    { title: 'LATTE', price: '$75', isCoffee: true },
+    { title: 'FLAT WHITE', price: '$80', isCoffee: true },
+    { title: 'LATTE', price: '$80', isCoffee: true },
     {
       title: '*Extra leche vegetal*', price: '+ $15', isExtra: true},
     { title: 'AFFOGATO', price: '$90', isCoffee: true },
@@ -128,32 +120,32 @@ function App() {
       isSubHeader: true,
     },
     { title: 'MATCHA CEREMONIAL',
-      price: '$80', 
+      price: '$90', 
     },
     { title: 'CHAI',
-      price: '$80',
+      price: '$85',
       description: 'Mezcla de jengibre, cardamomo, regaliz, albahaca y ashwagandha. Pídelo caliente o frío.',
     },
     {
       title: 'SMOOTHIE',
-      price: '$75',
+      price: '$80',
       description: 'Leche, plátano, dátil y shot de espresso.',
     },
     {
       title: 'JUGO BOMBIUX',
-      price: '$60',
+      price: '$70',
       description: 'Piña, naranja, fresa y limón.'
     },
     {
       title: 'DE ANTAÑO',
-      price: '$60',
+      price: '$70',
       description: 'Betabel y zanahoria.'
     },
     {
       title: 'REFRESCOS:',
       isSubHeader: true,
     },
-    { title: 'COCA COLA', price: '$25' },
+    { title: 'COCA COLA', price: '$30' },
     { title: 'AGUA MINERAL', price: '$50'},
     {
       title: 'FOOTER',
