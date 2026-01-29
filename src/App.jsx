@@ -192,7 +192,7 @@ function App() {
                       <p className="font-pesada">{item.price}</p>
                     </div>
                     {item.description && (
-                      <div className=" md:tracking-wider w-15/17 md:w-6/10">
+                      <div className=" md:tracking-wider w-13/17 md:w-6/10">
                         <p className="text-sm md:text-xl">{item.description}</p>
                       </div>
                     )}
