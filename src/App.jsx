@@ -1,12 +1,62 @@
 import './App.css';
-import { useEffect, useRef } from 'react';
-import MuffinHuevoImage from './assets/Muffin-de-huevo.jpg'; // Import the image
+import { useEffect, useRef, useState } from 'react';
+import MuffinHuevoImage from './assets/Muffin-de-huevo.jpg';
 import LatteArguendeImage from './assets/LatteArguende.jpg';
+import { supabase } from './lib/supabase';
 
 function App() {
   const containerRef = useRef(null);
+  const [comidaItems, setComidaItems] = useState([]);
+  const [bebidasItems, setBebidasItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    async function fetchMenu() {
+      const { data: items, error } = await supabase
+        .from('menu_items')
+        .select('*, menu_extras(*)')
+        .eq('activo', true)
+        .order('orden');
+
+      if (error) {
+        console.error('Error cargando menu:', error);
+        setLoading(false);
+        return;
+      }
+
+      const mapItem = (item) => ({
+        title: item.titulo,
+        price: item.precio,
+        description: item.descripcion,
+        isHeader: item.tipo === 'header',
+        isSubHeader: item.tipo === 'subheader',
+        isUnder: item.tipo === 'under',
+        isExtra: item.tipo === 'extra',
+        isFooter: item.tipo === 'footer',
+        isCoffee: item.is_coffee,
+        isVariablePrice: item.is_variable_price,
+        extras: item.menu_extras
+          ?.sort((a, b) => a.orden - b.orden)
+          .map((e) => ({ text: e.texto, price: e.precio, isSmall: e.is_small })),
+      });
+
+      const comida = items.filter((i) => i.categoria === 'comida').map(mapItem);
+      const bebida = items.filter((i) => i.categoria === 'bebida').map(mapItem);
+
+      // Agregar footer de bebidas al final
+      bebida.push({ title: 'FOOTER', isFooter: true });
+
+      setComidaItems(comida);
+      setBebidasItems(bebida);
+      setLoading(false);
+    }
+
+    fetchMenu();
+  }, []);
+
+  useEffect(() => {
+    if (loading) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -30,128 +80,15 @@ function App() {
         elements.forEach((element) => observer.unobserve(element));
       }
     };
-  }, []);
+  }, [loading]);
 
-  const comidaItems = [
-    {
-      title: 'COMIDA',
-      isHeader: true,
-    },
-    {
-      title: 'MUFFIN DE HUEVO',
-      price: '$160',
-      description: 'El más sabroso.\n Pan brioche, huevos estrellados, chutney de cebolla con tocino, pepinillos encurtidos, arúgula, alioli de ajo, cebollín, mostaza dijon y queso cheddar.',
-    },
-    {
-      title: 'MENEMEN',
-      price: '$95',
-      description: 'Huevos escalfados en salsa de tomate con especias, pimiento, cebolla, queso fresco y perejil.',
-    },
-    {
-      title: 'NIÑO LINDO',
-      price: '$190',
-      description: 'Tostado con durazno asado, burrata, verdolaga y miel infusionada con habanero.',
-      extras: [
-        { text: '¡Hazlo salado! Añade jamon serrano', price: '+ $15' },
-      ],
-    },
-    {
-      title: 'EL SAPICHU',
-      price: '$90',
-      description: 'Taco de atún sellado, marinado con limón amarillo y aceite de oliva. Montado sobre un cremoso de aguacate con cebollitas encurtidas con limón, serrano y piña.',
-      extras: [
-        { text: '-Añade queso gouda', price: '+ $20' },
-      ],
-    },
-    {
-      title: 'PAN FRANCÉS',
-      price: '$120',
-      description: 'Infalible, acompañado de fruta de temporada.',
-    },
-    {
-      title: 'AVENITA',
-      price: '$65',
-      description: "Cocida en agua con un toque de leche y canela. Pera, nuez de castilla y un 'chin' de miel de agave.",
-      extras: [
-        { text: '-Añade: Yogurt griego/Crema de cacahuate', price: '+ $20', isSmall: true,},
-      ],
-    },
-    {
-      title: 'PI-JEI',
-      price: '$60',
-      description: 'Pan de caja tostado con crema de cacahuate y mermelada de la casa.',
-    },
-    {
-      title: 'CHEESECAKE DE MANGO',
-      price: '$90',
-    },
-  ];
-
-  const bebidasItems = [
-    {
-      title: 'BEBIDAS',
-      isHeader: true,
-    },
-    {
-      title: 'CAFÉ :',
-      isSubHeader: true,
-    },
-    {
-      title: '***SIN LECHE',
-      isUnder: true,
-    },
-    { title: 'ESPRESSO', price: '$60', isCoffee: true },
-    { title: 'AMERICANO', price: '$75', isCoffee: true },
-    { title: 'COLD BREW', price: '$90', isCoffee: true },
-    { title: 'FILTRADOS', price: '*Sujeto al origen de grano*', isCoffee: true, isVariablePrice: true },
-    {
-      title: '***CON LECHE',
-      isUnder: true,
-    },
-    { title: 'CAPUCHINO', price: '$85', isCoffee: true },
-    { title: 'CORTADO', price: '$65', isCoffee: true },
-    { title: 'FLAT WHITE', price: '$80', isCoffee: true },
-    { title: 'LATTE', price: '$80', isCoffee: true },
-    {
-      title: '*Extra leche vegetal*', price: '+ $15', isExtra: true},
-    { title: 'AFFOGATO', price: '$90', isCoffee: true },
-    {
-      title: 'ALTERNATIVAS :',
-      isSubHeader: true,
-    },
-    { title: 'MATCHA CEREMONIAL',
-      price: '$90', 
-    },
-    { title: 'CHAI',
-      price: '$85',
-      description: 'Mezcla de jengibre, cardamomo, regaliz, albahaca y ashwagandha. Pídelo caliente o frío.',
-    },
-    {
-      title: 'SMOOTHIE',
-      price: '$80',
-      description: 'Leche, plátano, dátil y shot de espresso.',
-    },
-    {
-      title: 'JUGO BOMBIUX',
-      price: '$70',
-      description: 'Piña, naranja, fresa y limón.'
-    },
-    {
-      title: 'DE ANTAÑO',
-      price: '$70',
-      description: 'Betabel y zanahoria.'
-    },
-    {
-      title: 'REFRESCOS:',
-      isSubHeader: true,
-    },
-    { title: 'COCA COLA', price: '$30' },
-    { title: 'AGUA MINERAL', price: '$50'},
-    {
-      title: 'FOOTER',
-      isFooter: true,
-    },
-  ];
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="font-pesada text-2xl">Cargando menú...</p>
+      </div>
+    );
+  }
 
   return (
     <div ref={containerRef} className='relative bg-white'>
@@ -167,7 +104,6 @@ function App() {
               <p className="relative font-pesada">RITUAL HABITUAL</p>
             </div>
           </div>
-
 
           <div className="justify-between hidden md:flex text-4xl ">
             <div>
@@ -211,7 +147,7 @@ function App() {
                     ))}
                   </>
                 )}
-              </div >
+              </div>
             ))}
           </div>
         </div>
@@ -231,7 +167,7 @@ function App() {
           </div>
           <div className="md:px-5 mx-5">
             <div className="justify-items-end">
-            
+
             </div>
             {bebidasItems.map((item, index) => (
               <div
