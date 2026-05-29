@@ -38,6 +38,21 @@ function App() {
       isHeader: true,
     },
     {
+      title: 'BAO BAO',
+      price: '$100',
+      description: 'Pan bao preparado al vapor, queso ricotta, shiitake, \n cebollin y el toque mexa del habanero.',
+    },
+    {
+      title: 'ENSALADA DE SANDÍA',
+      price: '$90',
+      description: 'Perlas de sandía, pepino criollo,cebolla morada, limon eureka, \n alcaparras, arandanos, queso feta y lo freso de la menta.',
+    },
+    {
+      title: 'HUEVOS TURCOS',
+      price: '$95',
+      description: 'Yogurth griego, huevos pochados, salsa macha \n y un toque de eneldo.',
+    },
+    {
       title: 'MUFFIN DE HUEVO',
       price: '$160',
       description: 'El más sabroso.\n Pan brioche, huevos estrellados, chutney de cebolla con tocino, pepinillos encurtidos, arúgula, alioli de ajo, cebollín, mostaza dijon y queso cheddar.',
