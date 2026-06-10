@@ -1,13 +1,7 @@
 @import "tailwindcss";
 
-
 :root {
   scroll-behavior: smooth;
-
-  color: rgba(255, 255, 255, 0.87);
+  /* Charcoal de fondo — visible en overscroll iOS y antes del splash */
   background-color: #282828;
-
-
 }
-
-

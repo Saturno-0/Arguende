@@ -1,13 +1,13 @@
-@import url('https://fonts.cdnfonts.com/css/helvetica-neue-5');
-
-/* Resto de tu CSS */
+/* Helvetica Neue es font del sistema en Apple — no CDN necesario */
 * {
-  font-family: 'Helvetica Neue', sans-serif;
-  font-weight: 300; /* light por defecto */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
 }
-.font-negritas{
+
+.font-negritas {
   font-weight: 900;
 }
+
 .font-italica {
   font-style: italic;
   font-weight: 900;
@@ -28,26 +28,5 @@
 
 .consola {
   font-family: 'Consolas', monospace;
-  font-weight: 400; /* normal */
-}
-
-.text-container {
-  opacity: 0; /* Oculta el elemento inicialmente */
-  transform: translateY(50px); /* Posición inicial para la animación */
-}
-
-
-.animate-slide-up {
-  animation: slideUp 1s ease-in-out forwards;
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(70px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  font-weight: 400;
 }

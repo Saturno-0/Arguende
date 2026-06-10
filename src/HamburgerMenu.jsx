@@ -1,91 +1,79 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import './App.css';
 
 const HamburgerMenu = () => {
-    const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-    return (
-        <div className="relative z-50 select-none">
-            <input
-                type="checkbox"
-                id="menuCheckbox"
-                className="absolute -top-2 cursor-pointer opacity-0 z-20"
-                checked={isOpen}
-                onChange={() => setIsOpen(!isOpen)}
-            />
-            <div className="space-y-1.5 relative z-10 ">
-                <span
-                    className={`block w-8 h-1 rounded bg-gray-800 transition-all duration-500 ease-in-out ${
-                        isOpen ? 'rotate-45 translate-y-2 bg-gray-800' : ''
-                    }`}
-                ></span>
-                <span
-                    className={`block w-8 h-1 rounded bg-gray-800 transition-all duration-500 ease-in-out ${
-                        isOpen ? 'opacity-0' : ''
-                    }`}
-                ></span>
-                <span
-                    className={`block w-8 h-1 rounded bg-gray-800 transition-all duration-500 ease-in-out ${
-                        isOpen ? '-rotate-45 -translate-y-2 bg-gray-800' : ''
-                    }`}
-                ></span>
+  const close = () => setIsOpen(false);
+
+  // Bloquea scroll del body mientras el menú está abierto
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
+  return (
+    <div className="relative">
+      {/* Botón hamburguesa — dentro del navbar z-50, siempre accesible */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex flex-col justify-center gap-[5px] w-8 h-8 focus:outline-none"
+        aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
+        aria-expanded={isOpen}
+      >
+        <span className={`block h-0.5 bg-zinc-800 transition-all duration-300 ease-in-out ${isOpen ? 'w-6 rotate-45 translate-y-[7px]' : 'w-6'}`} />
+        <span className={`block h-0.5 bg-zinc-800 transition-all duration-300 ease-in-out ${isOpen ? 'w-0 opacity-0' : 'w-5'}`} />
+        <span className={`block h-0.5 bg-zinc-800 transition-all duration-300 ease-in-out ${isOpen ? 'w-6 -rotate-45 -translate-y-[7px]' : 'w-6'}`} />
+      </button>
+
+      {/* Overlay via portal — z-[45] en el root context, encima del tab bar (z-30) */}
+      {createPortal(
+        <div
+          className={`fixed inset-0 bg-white z-[45] flex flex-col items-center justify-center transition-transform duration-500 ease-in-out ${
+            isOpen ? 'translate-x-0' : '-translate-x-full pointer-events-none'
+          }`}
+        >
+          <nav className="flex flex-col items-center gap-10">
+            {[
+              { href: '#comida', label: 'Comida' },
+              { href: '#bebidas', label: 'Bebidas' },
+              { href: '#contacto', label: 'Contacto' },
+            ].map(({ href, label }) => (
+              <a
+                key={href}
+                href={href}
+                onClick={close}
+                className="text-4xl text-zinc-800 font-light tracking-wide hover:text-zinc-500 transition-colors duration-200"
+              >
+                {label}
+              </a>
+            ))}
+
+            <div className="flex gap-10 mt-6 pt-6 border-t border-zinc-100 w-40 justify-center">
+              {[
+                { href: 'https://www.instagram.com/arguende_/', label: 'Instagram' },
+                { href: 'https://wa.me/523331780373', label: 'WhatsApp' },
+                { href: 'https://www.ubereats.com/mx/store/arguende/bkrhFt4JVQuljpyblah9CQ?diningMode=DELIVERY&ps=1&surfaceName=', label: 'Uber Eats' },
+              ].map(({ href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={close}
+                  className="text-sm text-zinc-500 font-light hover:text-zinc-900 transition-colors duration-200 whitespace-nowrap"
+                >
+                  {label}
+                </a>
+              ))}
             </div>
-            <ul
-                className={`absolute w-full bg-white h-screen flex flex-col -top-10 -left-4 justify-center items-center transform transition-transform duration-600 ease-in-out ${
-                    isOpen ? 'translate-x-0 w-screen' : '-translate-x-full w-screen'
-                }`}
-            >
-                <li className="py-2 text-3xl text-center">
-                    <a href="#comida" onClick={() => setIsOpen(false)} className="text-gray-800 font-media transition-opacity font-light">
-                        Comida
-                    </a>
-                </li>
-                <li className="py-2 text-3xl text-center">
-                    <a href="#bebidas" onClick={() => setIsOpen(false)} className="text-gray-800 font-media transition-opacity font-light">
-                        Bebidas
-                    </a>
-                </li>
-                <li className="py-2 text-3xl text-center">
-                    <a href="#contacto" onClick={() => setIsOpen(false)} className="text-gray-800 font-media transition-opacity font-light">
-                        Contacto
-                    </a>
-                </li>
-                <li className="py-2 text-3xl text-center">
-                    <a
-                        onClick={() => setIsOpen(false)}
-                        href="https://www.instagram.com/arguende_/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-800 font-media hover:opacity-70 transition-opacity font-light"
-                    >
-                        Instagram
-                    </a>
-                </li>
-                <li className="py-2 text-3xl text-center">
-                    <a
-                        onClick={() => setIsOpen(false)}
-                        href="https://wa.me/523331780373"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-800 font-media hover:opacity-70 transition-opacity font-light"
-                    >
-                        WhatsApp
-                    </a>
-                </li>
-                <li className="py-2 text-3xl text-center">
-                    <a
-                        onClick={() => setIsOpen(false)}
-                        href="https://www.ubereats.com/mx/store/arguende/bkrhFt4JVQuljpyblah9CQ?diningMode=DELIVERY&ps=1&surfaceName="
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-800 font-media hover:opacity-70 transition-opacity font-light"
-                    >
-                        Uber Eats
-                    </a>
-                </li>
-            </ul>
-        </div>
-    );
+          </nav>
+        </div>,
+        document.body
+      )}
+    </div>
+  );
 };
 
 export default HamburgerMenu;

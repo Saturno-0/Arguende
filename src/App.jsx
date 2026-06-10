@@ -1,313 +1,295 @@
+import { useState, useEffect } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
+import { supabase } from './lib/supabase';
 import './App.css';
-import { useEffect, useRef } from 'react';
-import MuffinHuevoImage from './assets/Muffin-de-huevo.jpg'; // Import the image
+import MuffinHuevoImage from './assets/Muffin-de-huevo.jpg';
 import LatteArguendeImage from './assets/LatteArguende.jpg';
 
-function App() {
-  const containerRef = useRef(null);
+/* ---------- Tabs sticky para mobile/tablet ---------- */
+const TABS = [
+  { id: 'comida',  label: 'Comida',  bg: '#18181b', textCls: 'text-white' },
+  { id: 'bebidas', label: 'Bebidas', bg: '#e8b5b5', textCls: 'text-zinc-900' },
+];
+
+function MenuTabs() {
+  const [active, setActive] = useState('comida');
+  const reduce = useReducedMotion();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-slide-up');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (containerRef.current) {
-      const elements = containerRef.current.querySelectorAll('.text-container');
-      elements.forEach((element) => observer.observe(element));
-    }
-
-    return () => {
-      if (containerRef.current) {
-        const elements = containerRef.current.querySelectorAll('.text-container');
-        elements.forEach((element) => observer.unobserve(element));
-      }
+    let current = 'comida';
+    const update = () => {
+      const bebidas = document.getElementById('bebidas');
+      if (!bebidas) return;
+      const next = bebidas.getBoundingClientRect().top < 300 ? 'bebidas' : 'comida';
+      if (next !== current) { current = next; setActive(next); }
     };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+    return () => window.removeEventListener('scroll', update);
   }, []);
 
-  const comidaItems = [
-    {
-      title: 'COMIDA',
-      isHeader: true,
-    },
-    {
-      title: 'BAO BAO',
-      price: '$100',
-      description: 'Pan bao preparado al vapor, queso ricotta, shiitake, \n cebollin y el toque mexa del habanero.',
-    },
-    {
-      title: 'ENSALADA DE SANDÍA',
-      price: '$90',
-      description: 'Perlas de sandía, pepino criollo,cebolla morada, limon eureka, \n alcaparras, arandanos, queso feta y lo freso de la menta.',
-    },
-    {
-      title: 'HUEVOS TURCOS',
-      price: '$95',
-      description: 'Yogurth griego, huevos pochados, salsa macha \n y un toque de eneldo.',
-    },
-    {
-      title: 'MUFFIN DE HUEVO',
-      price: '$160',
-      description: 'El más sabroso.\n Pan brioche, huevos estrellados, chutney de cebolla con tocino, pepinillos encurtidos, arúgula, alioli de ajo, cebollín, mostaza dijon y queso cheddar.',
-    },
-    {
-      title: 'MENEMEN',
-      price: '$95',
-      description: 'Huevos escalfados en salsa de tomate con especias, pimiento, cebolla, queso fresco y perejil.',
-    },
-    {
-      title: 'NIÑO LINDO',
-      price: '$190',
-      description: 'Tostado con durazno asado, burrata, verdolaga y miel infusionada con habanero.',
-      extras: [
-        { text: '¡Hazlo salado! Añade jamon serrano', price: '+ $15' },
-      ],
-    },
-    {
-      title: 'EL SAPICHU',
-      price: '$90',
-      description: 'Taco de atún sellado, marinado con limón amarillo y aceite de oliva. Montado sobre un cremoso de aguacate con cebollitas encurtidas con limón, serrano y piña.',
-      extras: [
-        { text: '-Añade queso gouda', price: '+ $20' },
-      ],
-    },
-    {
-      title: 'PAN FRANCÉS',
-      price: '$120',
-      description: 'Infalible, acompañado de fruta de temporada.',
-    },
-    {
-      title: 'AVENITA',
-      price: '$65',
-      description: "Cocida en agua con un toque de leche y canela. Pera, nuez de castilla y un 'chin' de miel de agave.",
-      extras: [
-        { text: '-Añade: Yogurt griego/Crema de cacahuate', price: '+ $20', isSmall: true,},
-      ],
-    },
-    {
-      title: 'PI-JEI',
-      price: '$60',
-      description: 'Pan de caja tostado con crema de cacahuate y mermelada de la casa.',
-    },
-    {
-      title: 'CHEESECAKE DE MANGO',
-      price: '$90',
-    },
-  ];
+  return (
+    <div className="sticky top-16 md:top-[85px] z-30 lg:hidden bg-white/95 backdrop-blur-sm border-b border-zinc-100 px-5 py-2">
+      <div className="relative flex bg-zinc-100 rounded-full p-1">
+        {TABS.map((tab) => (
+          <a
+            key={tab.id}
+            href={`#${tab.id}`}
+            className="relative flex-1 py-1.5 text-[13px] font-medium text-center z-10"
+          >
+            {active === tab.id && (
+              <motion.span
+                layoutId="tab-bubble"
+                className="absolute inset-0 rounded-full"
+                style={{ backgroundColor: tab.bg }}
+                transition={
+                  reduce
+                    ? { duration: 0 }
+                    : { type: 'spring', stiffness: 300, damping: 22 }
+                }
+              />
+            )}
+            <span className={`relative z-10 transition-colors duration-200 ${
+              active === tab.id ? tab.textCls : 'text-zinc-400'
+            }`}>
+              {tab.label}
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-  const bebidasItems = [
-    {
-      title: 'BEBIDAS',
-      isHeader: true,
-    },
-    {
-      title: 'CAFÉ :',
-      isSubHeader: true,
-    },
-    {
-      title: '***SIN LECHE',
-      isUnder: true,
-    },
-    { title: 'ESPRESSO', price: '$60', isCoffee: true },
-    { title: 'AMERICANO', price: '$75', isCoffee: true },
-    { title: 'COLD BREW', price: '$90', isCoffee: true },
-    { title: 'FILTRADOS', price: '*Sujeto al origen de grano*', isCoffee: true, isVariablePrice: true },
-    {
-      title: '***CON LECHE',
-      isUnder: true,
-    },
-    { title: 'CAPUCHINO', price: '$85', isCoffee: true },
-    { title: 'CORTADO', price: '$65', isCoffee: true },
-    { title: 'FLAT WHITE', price: '$80', isCoffee: true },
-    { title: 'LATTE', price: '$80', isCoffee: true },
-    {
-      title: '*Extra leche vegetal*', price: '+ $15', isExtra: true},
-    { title: 'AFFOGATO', price: '$90', isCoffee: true },
-    {
-      title: 'ALTERNATIVAS :',
-      isSubHeader: true,
-    },
-    { title: 'MATCHA CEREMONIAL',
-      price: '$90', 
-    },
-    { title: 'CHAI',
-      price: '$85',
-      description: 'Mezcla de jengibre, cardamomo, regaliz, albahaca y ashwagandha. Pídelo caliente o frío.',
-    },
-    {
-      title: 'SMOOTHIE',
-      price: '$80',
-      description: 'Leche, plátano, dátil y shot de espresso.',
-    },
-    {
-      title: 'JUGO BOMBIUX',
-      price: '$70',
-      description: 'Piña, naranja, fresa y limón.'
-    },
-    {
-      title: 'DE ANTAÑO',
-      price: '$70',
-      description: 'Betabel y zanahoria.'
-    },
-    {
-      title: 'REFRESCOS:',
-      isSubHeader: true,
-    },
-    { title: 'COCA COLA', price: '$30' },
-    { title: 'AGUA MINERAL', price: '$50'},
-    {
-      title: 'FOOTER',
-      isFooter: true,
-    },
-  ];
+/* ---------- Item de menú ---------- */
+function MenuItem({ item, reduce }) {
+  if (item.isHeader) return null;
 
   return (
-    <div ref={containerRef} className='relative bg-white'>
-      <div id="comida" className="flex md:pt-25 md:ml-10">
-        <div className="text-black w-full ">
-          {/* Img Mobile */}
-          <div className="bg-[url(/src/assets/Muffin-de-huevo.jpg)] bg-cover bg-no-repeat bg-center h-70 md:hidden h-3/4 items-end text-xl md:text-4xl flex justify-around">
-            <div className="absolute text-white bg-gradient-to-t w-screen from-white from-20% to-transparent md:hidden">.</div>
-            <div>
-              <p className="relative font-pesada">@arguende_</p>
-            </div>
-            <div>
-              <p className="relative font-pesada">RITUAL HABITUAL</p>
-            </div>
-          </div>
-
-
-          <div className="justify-between hidden md:flex text-4xl ">
-            <div>
-              <p className="md:pl-10 font-pesada">@arguende_</p>
-            </div>
-            <div>
-              <p className="font-pesada">RITUAL HABITUAL</p>
-            </div>
-          </div>
-          <div className=" md:mx-10 mx-5 relative z-0">
-            {comidaItems.map((item, index) => (
-              <div
-                key={index}
-                className={`text-container ${item.isHeader ? 'md:py-10 pt-10 pb-5' : 'pb-5'}`}
-              >
-                {item.isHeader ? (
-                  <p className="font-pesada text-6xl md:text-6xl">{item.title}</p>
-                ) : (
-                  <>
-                    <div className="flex justify-between text-2xl md:text-3xl">
-                      <p className="font-media">{item.title}</p>
-                      <p className="font-pesada">{item.price}</p>
-                    </div>
-                    {item.description && (
-                      <div className=" md:tracking-wider w-11/17 md:w-6/10">
-                        <p className="text-sm md:text-xl">{item.description}</p>
-                      </div>
-                    )}
-                    {item.extras && item.extras.map((extra, extraIndex) => (
-                      <div
-                        key={extraIndex}
-                        className={`flex justify-end md:justify-end items-center`}
-                      >
-                        <p className={`font-media ${extra.isSmall ? 'text-sm mr-5' : 'md:mr-0 mr-5'}`}>
-                          {extra.text}
-                        </p>
-                        <p className="font-pesada md:pl-10 text-xl md:text-2xl">
-                          {extra.price}
-                        </p>
-                      </div>
-                    ))}
-                  </>
-                )}
-              </div >
-            ))}
-          </div>
+    <motion.div
+      className="pb-5"
+      initial={reduce ? false : { opacity: 0, y: 14 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {item.isSubHeader ? (
+        <p className="font-pesada text-2xl md:text-3xl pt-4 pb-1">{item.title}</p>
+      ) : item.isUnder ? (
+        <p className="font-italica text-sm my-2 opacity-60">{item.title}</p>
+      ) : item.isFooter ? (
+        <div className="text-xl md:text-3xl my-10 text-white flex justify-between">
+          <p className="font-pesada">@arguende_</p>
+          <p className="font-pesada">RITUAL HABITUAL</p>
         </div>
-        <div className="sticky top-25 md:w-2/3 self-start md:flex hidden md:px-30">
+      ) : item.isExtra ? (
+        <div className="flex justify-end items-center gap-6">
+          <p className="font-negritas text-sm">{item.title}</p>
+          <p className="font-pesada text-xl md:text-2xl">{item.price}</p>
+        </div>
+      ) : (
+        <>
+          <div className="flex justify-between items-baseline gap-4">
+            <p className={`font-media ${item.isCoffee ? 'text-base md:text-xl' : 'text-xl md:text-2xl'}`}>
+              {item.title}
+            </p>
+            <p className={`font-pesada shrink-0 ${item.isVariablePrice ? 'text-xs' : 'text-xl md:text-2xl'}`}>
+              {item.price}
+            </p>
+          </div>
+          {item.description && (
+            <p className="text-sm md:text-base leading-snug mt-1 opacity-70 max-w-[60ch]">
+              {item.description}
+            </p>
+          )}
+          {item.extras?.map((extra, i) => (
+            <div key={i} className="flex justify-end items-center gap-4 mt-1">
+              <p className={`font-media ${extra.isSmall ? 'text-xs' : 'text-sm'} opacity-60`}>
+                {extra.text}
+              </p>
+              <p className="font-pesada text-lg md:text-xl">{extra.price}</p>
+            </div>
+          ))}
+        </>
+      )}
+    </motion.div>
+  );
+}
+
+/* ---------- Skeleton de carga ---------- */
+function MenuSkeleton() {
+  return (
+    <div className="px-5 sm:px-7 md:px-8 lg:px-10 pb-10 animate-pulse">
+      <div className="h-14 w-48 bg-zinc-200 rounded-lg mt-7 mb-6" />
+      {[...Array(6)].map((_, i) => (
+        <div key={i} className="pb-5">
+          <div className="flex justify-between mb-2">
+            <div className="h-5 bg-zinc-100 rounded w-2/5" />
+            <div className="h-5 bg-zinc-100 rounded w-12" />
+          </div>
+          <div className="h-4 bg-zinc-100 rounded w-3/4" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ---------- App principal ---------- */
+function App() {
+  const reduce = useReducedMotion();
+  const [comidaItems, setComidaItems] = useState([]);
+  const [bebidasItems, setBebidasItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchMenu() {
+      const { data, error } = await supabase
+        .from('menu_items')
+        .select('*, menu_extras(*)')
+        .eq('activo', true)
+        .order('orden');
+
+      if (error) {
+        console.error('Error cargando menú:', error);
+        setLoading(false);
+        return;
+      }
+
+      const mapItem = (item) => ({
+        title: item.titulo,
+        price: item.precio,
+        description: item.descripcion,
+        isHeader: item.tipo === 'header',
+        isSubHeader: item.tipo === 'subheader',
+        isUnder: item.tipo === 'under',
+        isExtra: item.tipo === 'extra',
+        isFooter: item.tipo === 'footer',
+        isCoffee: item.is_coffee,
+        isVariablePrice: item.is_variable_price,
+        extras: item.menu_extras
+          ?.sort((a, b) => a.orden - b.orden)
+          .map((e) => ({ text: e.texto, price: e.precio, isSmall: e.is_small })),
+      });
+
+      const comida = data.filter((i) => i.categoria === 'comida').map(mapItem);
+      const bebida = data.filter((i) => i.categoria === 'bebida').map(mapItem);
+      bebida.push({ title: 'FOOTER', isFooter: true });
+
+      setComidaItems(comida);
+      setBebidasItems(bebida);
+      setLoading(false);
+    }
+
+    fetchMenu();
+  }, []);
+
+  return (
+    <div className="relative bg-white">
+      <MenuTabs />
+
+      {/* ===== COMIDA ===== */}
+      <section id="comida" className="scroll-mt-[116px] md:scroll-mt-[137px] lg:scroll-mt-[85px] lg:flex lg:items-start">
+
+        {/* Columna menú */}
+        <div className="text-zinc-900 w-full lg:flex-1 min-w-0">
+
+          {/* Hero image — mobile y tablet */}
+          <div className="lg:hidden relative h-60 sm:h-72 md:h-80 overflow-hidden">
+            <img
+              src={MuffinHuevoImage}
+              alt="Argüende comida"
+              className="w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-white/70 to-transparent" />
+            <div className="absolute bottom-4 left-5 right-5 flex justify-between">
+              <p className="font-pesada text-zinc-800 text-lg">@arguende_</p>
+              <p className="font-pesada text-zinc-800 text-lg">RITUAL HABITUAL</p>
+            </div>
+          </div>
+
+          {/* Tagline desktop */}
+          <div className="hidden lg:flex justify-between items-baseline px-10 pt-24 pb-0 text-3xl xl:text-4xl">
+            <p className="font-pesada">@arguende_</p>
+            <p className="font-pesada">RITUAL HABITUAL</p>
+          </div>
+
+          {/* Items */}
+          {loading ? <MenuSkeleton /> : (
+            <div className="px-5 sm:px-7 md:px-8 lg:px-10 pb-10">
+              <motion.p
+                className="font-pesada text-5xl md:text-6xl pt-7 pb-6 lg:pt-5"
+                initial={reduce ? false : { opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              >
+                COMIDA
+              </motion.p>
+              {comidaItems
+                .filter((item) => !item.isHeader)
+                .map((item, i) => (
+                  <MenuItem key={i} item={item} reduce={reduce} />
+                ))}
+            </div>
+          )}
+        </div>
+
+        {/* Imagen sticky — solo desktop */}
+        <div className="hidden lg:block sticky top-[85px] w-[33%] shrink-0 self-start px-6 xl:px-10 py-10">
           <img
             src={MuffinHuevoImage}
-            alt="Argüende Food"
-            className=" shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-3xl"
+            alt="Argüende comida"
+            className="w-full max-h-[calc(100vh-85px-5rem)] object-cover rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.08),_0_16px_48px_rgba(0,0,0,0.06)]"
           />
         </div>
-      </div>
-      <div id="bebidas" className="flex md:pt-25 md:ml-10">
-        <div className="text-black bg-[#FCCDCD] w-full ">
-        {/* Img Mobile */}
-          <div className="bg-[url(/src/assets/LatteArguende.jpg)] bg-cover bg-no-repeat bg-[center_70%] h-70 md:hidden h-3/4 items-end text-xl md:text-4xl flex justify-around relative z-10">
-            <div className="absolute text-white bg-gradient-to-t w-screen from-[#FCCDCD] from-20% to-transparent md:hidden">.</div>
+      </section>
+
+      {/* ===== BEBIDAS ===== */}
+      <section id="bebidas" className="scroll-mt-[116px] md:scroll-mt-[137px] lg:scroll-mt-[85px] lg:flex lg:items-start bg-[#FCCDCD]">
+
+        {/* Columna menú */}
+        <div className="text-zinc-900 w-full lg:flex-1 min-w-0">
+
+          {/* Hero image — mobile y tablet */}
+          <div className="lg:hidden relative h-60 sm:h-72 md:h-80 overflow-hidden">
+            <img
+              src={LatteArguendeImage}
+              alt="Argüende bebidas"
+              className="w-full h-full object-cover object-[center_70%]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#FCCDCD]/75 to-transparent" />
           </div>
-          <div className="md:px-5 mx-5">
-            <div className="justify-items-end">
-            
-            </div>
-            {bebidasItems.map((item, index) => (
-              <div
-                key={index}
-                className={`text-container ${item.isHeader ? 'pt-6' : item.isSubHeader ? 'pt-7 pb-5' : item.isFooter ? 'text-xl md:text-4xl my-10 text-white flex justify-between' : ''}`}
+
+          {/* Items */}
+          {loading ? <MenuSkeleton /> : (
+            <div className="px-5 sm:px-7 md:px-8 lg:px-10 pb-10 lg:pt-24">
+              <motion.p
+                className="font-pesada text-5xl md:text-6xl pt-7 pb-6 lg:pt-5"
+                initial={reduce ? false : { opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               >
-                {item.isHeader ? (
-                  <p className="font-pesada text-6xl  md:text-6xl">{item.title}</p>
-                ) : item.isSubHeader ? (
-                  <p className="font-pesada text-2xl md:text-3xl">{item.title}</p>
-                ) : item.isFooter ? (
-                  <>
-                    <div>
-                      <p className="font-pesada">@arguende_</p>
-                    </div>
-                    <div>
-                      <p className="font-pesada">RITUAL HABITUAL</p>
-                    </div>
-                  </>
-                ) : item.isUnder ? (
-                  <>
-                    <div>
-                      <p className="font-italica my-3">{item.title}</p>
-                    </div>
-                  </>
-                ) : item.isExtra ? (
-                  <>
-                    <div className="flex justify-end items-center">
-                      <p className="font-negritas text-sm md:mr-0 mr-3">{item.title} </p>
-                      <p className="font-pesada md:pl-10 text-xl md:text-2xl">{item.price}</p>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="flex justify-between text-2xl items-center md:text-3xl">
-                      <p className={`font-media ${item.isCoffee  ? 'text-lg md:text-xl' : 'pt-2 text-lg md:text-xl'}`}>
-                        {item.title}
-                      </p>
-                      <p className={`${item.isVariablePrice ? 'text-sm font-pesada' : 'font-pesada'}`}>
-                        {item.price}
-                      </p>
-                    </div>
-                    {item.description && (
-                      <div className="text-sm md:text-xl md:w-7/8">
-                        <p>{item.description}</p>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-            ))}
-          </div>
+                BEBIDAS
+              </motion.p>
+              {bebidasItems
+                .filter((item) => !item.isHeader)
+                .map((item, i) => (
+                  <MenuItem key={i} item={item} reduce={reduce} />
+                ))}
+            </div>
+          )}
         </div>
-        <div className="sticky top-25 md:w-2/3 self-start md:flex hidden md:px-30 ">
+
+        {/* Imagen sticky — solo desktop */}
+        <div className="hidden lg:block sticky top-[85px] w-[33%] shrink-0 self-start px-6 xl:px-10 py-10">
           <img
             src={LatteArguendeImage}
-            alt="Argüende Beverage"
-            className="text-container object-contain shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-3xl"
+            alt="Argüende bebidas"
+            className="w-full max-h-[calc(100vh-85px-5rem)] object-cover object-[center_70%] rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.08),_0_16px_48px_rgba(0,0,0,0.06)]"
           />
         </div>
-      </div>
+      </section>
     </div>
   );
 }
