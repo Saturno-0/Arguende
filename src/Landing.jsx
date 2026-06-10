@@ -1,18 +1,32 @@
 import { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import './App.css';
-import FacadeArguendeImage from './assets/FacadeArguende.jpg';
+import { supabase } from './lib/supabase';
 import ImageCarousel from './components/ImageCarousel';
 
 function Landing() {
   const [isLogoActive, setIsLogoActive] = useState(false);
   const [isSplashVisible, setIsSplashVisible] = useState(true);
   const [isCarouselVisible, setIsCarouselVisible] = useState(false);
+  const [fachadaUrl, setFachadaUrl] = useState(null);
   const reduce = useReducedMotion();
 
   useEffect(() => {
     const logoTimer = setTimeout(() => setIsLogoActive(true), 500);
     const splashTimer = setTimeout(() => setIsSplashVisible(false), 1600);
+
+    supabase
+      .from('section_images')
+      .select('path')
+      .eq('seccion', 'fachada')
+      .single()
+      .then(({ data }) => {
+        if (data?.path) {
+          const { data: urlData } = supabase.storage.from('menu-images').getPublicUrl(data.path);
+          setFachadaUrl(urlData.publicUrl);
+        }
+      });
+
     return () => {
       clearTimeout(logoTimer);
       clearTimeout(splashTimer);
@@ -38,13 +52,15 @@ function Landing() {
       </div>
 
       {/* Foto fachada — ocupa todo en mobile, 62% a izquierda en desktop */}
-      <div className="absolute inset-0 md:right-[38%]">
-        <img
-          src={FacadeArguendeImage}
-          alt="Argüende fachada"
-          className="w-full h-full object-cover object-center"
-        />
-      </div>
+      {fachadaUrl && (
+        <div className="absolute inset-0 md:right-[38%]">
+          <img
+            src={fachadaUrl}
+            alt="Argüende fachada"
+            className="w-full h-full object-cover object-center"
+          />
+        </div>
+      )}
 
       {/* Gradiente en desktop: fade de foto hacia panel oscuro */}
       <div className="hidden md:block absolute top-0 bottom-0 right-[38%] w-32 bg-gradient-to-r from-transparent to-[#282828]" />

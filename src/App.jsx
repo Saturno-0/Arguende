@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { supabase } from './lib/supabase';
 import './App.css';
-import MuffinHuevoImage from './assets/Muffin-de-huevo.jpg';
-import LatteArguendeImage from './assets/LatteArguende.jpg';
 
 /* ---------- Tabs sticky para mobile/tablet ---------- */
 const TABS = [
@@ -139,48 +137,62 @@ function App() {
   const reduce = useReducedMotion();
   const [comidaItems, setComidaItems] = useState([]);
   const [bebidasItems, setBebidasItems] = useState([]);
+  const [sectionImages, setSectionImages] = useState({ comida: null, bebidas: null });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchMenu() {
-      const { data, error } = await supabase
-        .from('menu_items')
-        .select('*, menu_extras(*)')
-        .eq('activo', true)
-        .order('orden');
+    async function fetchAll() {
+      const [menuRes, imagesRes] = await Promise.all([
+        supabase
+          .from('menu_items')
+          .select('*, menu_extras(*)')
+          .eq('activo', true)
+          .order('orden'),
+        supabase
+          .from('section_images')
+          .select('seccion, path, alt'),
+      ]);
 
-      if (error) {
-        console.error('Error cargando menú:', error);
-        setLoading(false);
-        return;
+      if (menuRes.error) {
+        console.error('Error cargando menú:', menuRes.error);
+      } else {
+        const mapItem = (item) => ({
+          title: item.titulo,
+          price: item.precio,
+          description: item.descripcion,
+          isHeader: item.tipo === 'header',
+          isSubHeader: item.tipo === 'subheader',
+          isUnder: item.tipo === 'under',
+          isExtra: item.tipo === 'extra',
+          isFooter: item.tipo === 'footer',
+          isCoffee: item.is_coffee,
+          isVariablePrice: item.is_variable_price,
+          extras: item.menu_extras
+            ?.sort((a, b) => a.orden - b.orden)
+            .map((e) => ({ text: e.texto, price: e.precio, isSmall: e.is_small })),
+        });
+
+        const comida = menuRes.data.filter((i) => i.categoria === 'comida').map(mapItem);
+        const bebida = menuRes.data.filter((i) => i.categoria === 'bebida').map(mapItem);
+        bebida.push({ title: 'FOOTER', isFooter: true });
+
+        setComidaItems(comida);
+        setBebidasItems(bebida);
       }
 
-      const mapItem = (item) => ({
-        title: item.titulo,
-        price: item.precio,
-        description: item.descripcion,
-        isHeader: item.tipo === 'header',
-        isSubHeader: item.tipo === 'subheader',
-        isUnder: item.tipo === 'under',
-        isExtra: item.tipo === 'extra',
-        isFooter: item.tipo === 'footer',
-        isCoffee: item.is_coffee,
-        isVariablePrice: item.is_variable_price,
-        extras: item.menu_extras
-          ?.sort((a, b) => a.orden - b.orden)
-          .map((e) => ({ text: e.texto, price: e.precio, isSmall: e.is_small })),
-      });
+      if (!imagesRes.error && imagesRes.data) {
+        const imgs = {};
+        imagesRes.data.forEach(({ seccion, path, alt }) => {
+          const { data } = supabase.storage.from('menu-images').getPublicUrl(path);
+          imgs[seccion] = { url: data.publicUrl, alt: alt ?? '' };
+        });
+        setSectionImages(imgs);
+      }
 
-      const comida = data.filter((i) => i.categoria === 'comida').map(mapItem);
-      const bebida = data.filter((i) => i.categoria === 'bebida').map(mapItem);
-      bebida.push({ title: 'FOOTER', isFooter: true });
-
-      setComidaItems(comida);
-      setBebidasItems(bebida);
       setLoading(false);
     }
 
-    fetchMenu();
+    fetchAll();
   }, []);
 
   return (
@@ -194,18 +206,20 @@ function App() {
         <div className="text-zinc-900 w-full lg:flex-1 min-w-0">
 
           {/* Hero image — mobile y tablet */}
-          <div className="lg:hidden relative h-60 sm:h-72 md:h-80 overflow-hidden">
-            <img
-              src={MuffinHuevoImage}
-              alt="Argüende comida"
-              className="w-full h-full object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-white/70 to-transparent" />
-            <div className="absolute bottom-4 left-5 right-5 flex justify-between">
-              <p className="font-pesada text-zinc-800 text-lg">@arguende_</p>
-              <p className="font-pesada text-zinc-800 text-lg">RITUAL HABITUAL</p>
+          {sectionImages.comida && (
+            <div className="lg:hidden relative h-60 sm:h-72 md:h-80 overflow-hidden">
+              <img
+                src={sectionImages.comida.url}
+                alt={sectionImages.comida.alt}
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-white/70 to-transparent" />
+              <div className="absolute bottom-4 left-5 right-5 flex justify-between">
+                <p className="font-pesada text-zinc-800 text-lg">@arguende_</p>
+                <p className="font-pesada text-zinc-800 text-lg">RITUAL HABITUAL</p>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Tagline desktop */}
           <div className="hidden lg:flex justify-between items-baseline px-10 pt-24 pb-0 text-3xl xl:text-4xl">
@@ -235,13 +249,15 @@ function App() {
         </div>
 
         {/* Imagen sticky — solo desktop */}
-        <div className="hidden lg:block sticky top-[85px] w-[33%] shrink-0 self-start px-6 xl:px-10 py-10">
-          <img
-            src={MuffinHuevoImage}
-            alt="Argüende comida"
-            className="w-full max-h-[calc(100vh-85px-5rem)] object-cover rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.08),_0_16px_48px_rgba(0,0,0,0.06)]"
-          />
-        </div>
+        {sectionImages.comida && (
+          <div className="hidden lg:block sticky top-[85px] w-[33%] shrink-0 self-start px-6 xl:px-10 py-10">
+            <img
+              src={sectionImages.comida.url}
+              alt={sectionImages.comida.alt}
+              className="w-full max-h-[calc(100vh-85px-5rem)] object-cover rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.08),_0_16px_48px_rgba(0,0,0,0.06)]"
+            />
+          </div>
+        )}
       </section>
 
       {/* ===== BEBIDAS ===== */}
@@ -251,14 +267,16 @@ function App() {
         <div className="text-zinc-900 w-full lg:flex-1 min-w-0">
 
           {/* Hero image — mobile y tablet */}
-          <div className="lg:hidden relative h-60 sm:h-72 md:h-80 overflow-hidden">
-            <img
-              src={LatteArguendeImage}
-              alt="Argüende bebidas"
-              className="w-full h-full object-cover object-[center_70%]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#FCCDCD]/75 to-transparent" />
-          </div>
+          {sectionImages.bebidas && (
+            <div className="lg:hidden relative h-60 sm:h-72 md:h-80 overflow-hidden">
+              <img
+                src={sectionImages.bebidas.url}
+                alt={sectionImages.bebidas.alt}
+                className="w-full h-full object-cover object-[center_70%]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#FCCDCD]/75 to-transparent" />
+            </div>
+          )}
 
           {/* Items */}
           {loading ? <MenuSkeleton /> : (
@@ -282,13 +300,15 @@ function App() {
         </div>
 
         {/* Imagen sticky — solo desktop */}
-        <div className="hidden lg:block sticky top-[85px] w-[33%] shrink-0 self-start px-6 xl:px-10 py-10">
-          <img
-            src={LatteArguendeImage}
-            alt="Argüende bebidas"
-            className="w-full max-h-[calc(100vh-85px-5rem)] object-cover object-[center_70%] rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.08),_0_16px_48px_rgba(0,0,0,0.06)]"
-          />
-        </div>
+        {sectionImages.bebidas && (
+          <div className="hidden lg:block sticky top-[85px] w-[33%] shrink-0 self-start px-6 xl:px-10 py-10">
+            <img
+              src={sectionImages.bebidas.url}
+              alt={sectionImages.bebidas.alt}
+              className="w-full max-h-[calc(100vh-85px-5rem)] object-cover object-[center_70%] rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.08),_0_16px_48px_rgba(0,0,0,0.06)]"
+            />
+          </div>
+        )}
       </section>
     </div>
   );

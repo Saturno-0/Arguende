@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { fetchCloudinaryImages, cloudinaryConfig } from "../config/cloudinary"
+import { supabase } from "../lib/supabase"
 
 const ImageCarousel = ({ isVisible, onClose }) => {
   const [images, setImages] = useState([])
@@ -12,25 +12,38 @@ const ImageCarousel = ({ isVisible, onClose }) => {
     if (isVisible) {
       loadImages()
     }
-  }, [isVisible]) 
+  }, [isVisible])
 
   const loadImages = async () => {
     setLoading(true)
     setError(null)
 
-    try {
-      const cloudinaryImages = await fetchCloudinaryImages("carousel")
+    const { data, error: listError } = await supabase.storage
+      .from('menu-images')
+      .list('carousel', { sortBy: { column: 'name', order: 'asc' } })
 
-      if (cloudinaryImages.length === 0) {
-        setError("No images found in carousel folder")
-      } else {
-        setImages(cloudinaryImages)
-      }
-    } catch (error) {
-      setError(`Failed to load images: ${error.message}`)
-    } finally {
+    if (listError) {
+      setError(`Error al cargar imágenes: ${listError.message}`)
       setLoading(false)
+      return
     }
+
+    const files = (data || []).filter((f) => f.name && !f.name.endsWith('/'))
+
+    if (files.length === 0) {
+      setError('No hay imágenes en el carrusel aún.')
+      setLoading(false)
+      return
+    }
+
+    const mapped = files.map((file) => ({
+      url: supabase.storage.from('menu-images').getPublicUrl(`carousel/${file.name}`).data.publicUrl,
+      name: file.name,
+    }))
+
+    setImages(mapped)
+    setCurrentIndex(0)
+    setLoading(false)
   }
 
   const nextImage = () => {
@@ -65,22 +78,18 @@ const ImageCarousel = ({ isVisible, onClose }) => {
 
         {loading ? (
           <div className="flex flex-col items-center justify-center h-full text-white">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mb-4"></div>
-            <p>Loading images...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mb-4" />
+            <p>Cargando...</p>
           </div>
         ) : error ? (
           <div className="flex flex-col items-center justify-center h-full text-white p-8 text-center">
             <p className="text-red-400 mb-4">{error}</p>
             <button
               onClick={loadImages}
-              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
+              className="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
             >
-              Try Again
+              Reintentar
             </button>
-          </div>
-        ) : images.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-white">
-            <p>No images found in carousel folder</p>
           </div>
         ) : (
           <>
@@ -88,13 +97,12 @@ const ImageCarousel = ({ isVisible, onClose }) => {
             <div className="relative h-full flex items-center justify-center p-8">
               {imageLoading && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white" />
                 </div>
               )}
-
               <img
-                src={`https://res.cloudinary.com/${cloudinaryConfig.cloudName}/image/upload/w_800,h_600,c_fit,q_auto:best,e_improve,f_auto/${images[currentIndex].public_id}`}
-                alt={`Carousel image ${currentIndex + 1}`}
+                src={images[currentIndex].url}
+                alt={`Argüende — ${images[currentIndex].name}`}
                 className="max-w-full max-h-full object-contain rounded-2xl shadow-lg"
                 onLoad={() => setImageLoading(false)}
                 onError={() => setImageLoading(false)}
@@ -106,16 +114,15 @@ const ImageCarousel = ({ isVisible, onClose }) => {
               <>
                 <button
                   onClick={prevImage}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-all duration-200"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-all duration-200"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
-
                 <button
                   onClick={nextImage}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-all duration-200"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-all duration-200"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -124,9 +131,9 @@ const ImageCarousel = ({ isVisible, onClose }) => {
               </>
             )}
 
-            {/* Dots Indicator */}
+            {/* Dots */}
             {images.length > 1 && (
-              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2">
                 {images.map((_, index) => (
                   <button
                     key={index}
@@ -139,7 +146,7 @@ const ImageCarousel = ({ isVisible, onClose }) => {
               </div>
             )}
 
-            {/* Image Counter */}
+            {/* Counter */}
             <div className="absolute top-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
               {currentIndex + 1} / {images.length}
             </div>
